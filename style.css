@@ -38,8 +38,8 @@ section {
   margin-bottom: 50px;
   font-size: 2rem;
   background: linear-gradient(90deg, #ffffff, #aab3d1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
 }
 
 /* =============================================
