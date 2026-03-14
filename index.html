@@ -135,27 +135,44 @@
           <option value="2028">2028</option>
         </select>
 
-        <label>Choose Color</label>
+        <label>T-Shirt Color</label>
+        <div class="color-picker shirt-color-picker">
+          <button class="shirt-swatch active" data-shirt="#1a2a5e" style="background:#1a2a5e" title="Navy Blue"></button>
+          <button class="shirt-swatch" data-shirt="#0d0d0d" style="background:#0d0d0d" title="Black"></button>
+          <button class="shirt-swatch" data-shirt="#ffffff" style="background:#ffffff" title="White"></button>
+          <button class="shirt-swatch" data-shirt="#b91c1c" style="background:#b91c1c" title="Red"></button>
+          <button class="shirt-swatch" data-shirt="#15803d" style="background:#15803d" title="Green"></button>
+          <button class="shirt-swatch" data-shirt="#7c3aed" style="background:#7c3aed" title="Purple"></button>
+          <button class="shirt-swatch" data-shirt="#d97706" style="background:#d97706" title="Amber"></button>
+          <button class="shirt-swatch" data-shirt="#0e7490" style="background:#0e7490" title="Teal"></button>
+        </div>
+
+        <label>Text Color</label>
         <div class="color-picker">
-          <button class="color-swatch active" data-color="#5b8cff" style="background:#5b8cff"></button>
+          <button class="color-swatch active" data-color="#ffffff" style="background:#ffffff"></button>
+          <button class="color-swatch" data-color="#5b8cff" style="background:#5b8cff"></button>
           <button class="color-swatch" data-color="#00f5a0" style="background:#00f5a0"></button>
           <button class="color-swatch" data-color="#ff6b6b" style="background:#ff6b6b"></button>
           <button class="color-swatch" data-color="#ffd166" style="background:#ffd166"></button>
-          <button class="color-swatch" data-color="#ffffff" style="background:#ffffff"></button>
+          <button class="color-swatch" data-color="#0d0d0d" style="background:#0d0d0d"></button>
         </div>
 
-        <button id="previewBtn" class="btn-secondary">Preview Design</button>
+        <label>Text Placement</label>
+        <div class="placement-options">
+          <button class="placement-btn active" data-placement="front-center">Front Center</button>
+          <button class="placement-btn" data-placement="front-top">Front Top</button>
+          <button class="placement-btn" data-placement="front-bottom">Front Bottom</button>
+          <button class="placement-btn" data-placement="back-center">Back Center</button>
+        </div>
+
         <button id="addCustomToCart" class="btn-primary">Add Custom to Cart</button>
+
+        <div class="or-divider"><span>OR</span></div>
+
+        <button id="personalReqBtn" class="btn-outline req-btn">✉️ Write / Send Your Personal Requirements</button>
       </div>
 
-      <div class="custom-preview">
-        <div class="preview-box" id="previewBox">
-          <div class="preview-tshirt">
-            <div class="preview-label" id="previewText">Your Name | Dept | Year</div>
-          </div>
-        </div>
-        <p class="preview-hint">Click "Preview Design" to see it live ↑</p>
-      </div>
+
     </div>
   </section>
 

@@ -23,7 +23,6 @@ const noResults      = document.getElementById("noResults");
 // ── State ─────────────────────────────────────
 let cart = [];                     // [{ product, qty }]
 let activeCategory = "all";
-let selectedColor  = "#5b8cff";
 
 // ── Product Data ───────────────────────────────
 const products = [
@@ -257,25 +256,32 @@ document.querySelector(".checkout-btn").addEventListener("click", () => {
 });
 
 // ── Customizer ────────────────────────────────
-// Color swatches
+let selectedColor     = "#ffffff";
+let selectedShirt     = "#1a2a5e";
+let selectedPlacement = "front-center";
+
+document.querySelectorAll(".shirt-swatch").forEach(swatch => {
+  swatch.addEventListener("click", () => {
+    document.querySelectorAll(".shirt-swatch").forEach(s => s.classList.remove("active"));
+    swatch.classList.add("active");
+    selectedShirt = swatch.dataset.shirt;
+  });
+});
+
 document.querySelectorAll(".color-swatch").forEach(swatch => {
   swatch.addEventListener("click", () => {
     document.querySelectorAll(".color-swatch").forEach(s => s.classList.remove("active"));
     swatch.classList.add("active");
     selectedColor = swatch.dataset.color;
-    document.getElementById("previewText").style.color = selectedColor;
   });
 });
 
-document.getElementById("previewBtn").addEventListener("click", () => {
-  const name = document.getElementById("customName").value.trim();
-  const dept = document.getElementById("customDept").value;
-  const year = document.getElementById("customYear").value;
-  const label = `${name || "Your Name"} | ${dept || "Dept"} | ${year || "Year"}`;
-  const previewText = document.getElementById("previewText");
-  previewText.textContent = label;
-  previewText.style.color = selectedColor;
-  showToast("✅ Preview updated!");
+document.querySelectorAll(".placement-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".placement-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    selectedPlacement = btn.dataset.placement;
+  });
 });
 
 // Add custom merch to cart
@@ -296,6 +302,20 @@ document.getElementById("addCustomToCart").addEventListener("click", () => {
     img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400",
   };
   addToCart(customProduct);
+});
+
+document.getElementById("personalReqBtn").addEventListener("click", () => {
+  const name = document.getElementById("customName").value.trim();
+  const dept = document.getElementById("customDept").value;
+  const year = document.getElementById("customYear").value;
+  const subject = encodeURIComponent("Personal Merch Requirements – Campus Merch");
+  const body = encodeURIComponent(
+    `Hi Campus Merch Team,\n\nI'd like to share my personal requirements for a custom T-shirt:\n\n` +
+    `Name: ${name || "—"}\nDepartment: ${dept || "—"}\nBatch Year: ${year || "—"}\n\n` +
+    `Additional Requirements:\n[Please describe your design, size, quantity, or any special requests here]\n\nThank you!`
+  );
+  window.open(`mailto:campusmerch@university.edu?subject=${subject}&body=${body}`, "_blank");
+  showToast("📧 Opening your email client…");
 });
 
 // ── Newsletter Form ────────────────────────────
