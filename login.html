@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login — Campus Merch Platform</title>
+  <meta name="description" content="Log in to your Campus Merch account using your university email.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="login.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <a href="index.html" class="back-home" id="backHome">← Back to Store</a>
+
+  <div class="login-bg-orb login-orb1"></div>
+  <div class="login-bg-orb login-orb2"></div>
+  <div class="login-bg-orb login-orb3"></div>
+
+  <div id="loginToast" class="login-toast"></div>
+
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="login-brand">
+        <a href="index.html" class="logo">Campus<span>Merch</span></a>
+        <br>
+        <span class="login-badge">🔒 Secure Student Login</span>
+      </div>
+
+      <div class="login-heading">
+        <h1>Welcome Back</h1>
+        <p>Sign in with your university credentials</p>
+      </div>
+
+      <form id="loginForm" class="login-form" novalidate>
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <div class="input-wrap">
+            <input type="email" id="loginEmail" placeholder="Rollno@university.edu.in" autocomplete="email" required>
+            <span class="input-icon">📧</span>
+          </div>
+          <div class="error-text" id="emailError">⚠ Must be in format: name@university.edu.in</div>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <div class="input-wrap">
+            <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password" required>
+            <span class="input-icon">🔑</span>
+            <button type="button" class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">👁</button>
+          </div>
+          <div class="error-text" id="passwordError">⚠ Must contain an uppercase letter and a symbol</div>
+          <div class="password-requirements">
+            <span class="req-tag" id="reqUppercase">A-Z Uppercase</span>
+            <span class="req-tag" id="reqSymbol">!@# Symbol</span>
+          </div>
+        </div>
+
+        <button type="submit" class="login-btn" id="loginBtn">Sign In →</button>
+      </form>
+
+      <div class="login-divider"><span>campus access only</span></div>
+
+      <div class="login-footer">
+        Need help? <a href="mailto:campusmerch@university.edu">Contact Support</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var emailInput = document.getElementById('loginEmail');
+      var passwordInput = document.getElementById('loginPassword');
+      var emailError = document.getElementById('emailError');
+      var passwordError = document.getElementById('passwordError');
+      var togglePassword = document.getElementById('togglePassword');
+      var loginForm = document.getElementById('loginForm');
+      var loginToast = document.getElementById('loginToast');
+      var reqUppercase = document.getElementById('reqUppercase');
+      var reqSymbol = document.getElementById('reqSymbol');
+
+      var emailPattern = /^[a-zA-Z0-9._%+-]+@university\.edu\.in$/;
+
+      function validateEmail() {
+        var val = emailInput.value.trim();
+        if (!val) {
+          emailInput.classList.remove('input-error', 'input-success');
+          emailError.classList.remove('visible');
+          return false;
+        }
+        if (emailPattern.test(val)) {
+          emailInput.classList.remove('input-error');
+          emailInput.classList.add('input-success');
+          emailError.classList.remove('visible');
+          return true;
+        } else {
+          emailInput.classList.remove('input-success');
+          emailInput.classList.add('input-error');
+          emailError.classList.add('visible');
+          return false;
+        }
+      }
+
+      function validatePassword() {
+        var val = passwordInput.value;
+        var hasUpper = /[A-Z]/.test(val);
+        var hasSymbol = /[^a-zA-Z0-9\s]/.test(val);
+
+        if (hasUpper) {
+          reqUppercase.classList.add('met');
+          reqUppercase.classList.remove('unmet');
+        } else if (val.length > 0) {
+          reqUppercase.classList.add('unmet');
+          reqUppercase.classList.remove('met');
+        } else {
+          reqUppercase.classList.remove('met', 'unmet');
+        }
+
+        if (hasSymbol) {
+          reqSymbol.classList.add('met');
+          reqSymbol.classList.remove('unmet');
+        } else if (val.length > 0) {
+          reqSymbol.classList.add('unmet');
+          reqSymbol.classList.remove('met');
+        } else {
+          reqSymbol.classList.remove('met', 'unmet');
+        }
+
+        if (!val) {
+          passwordInput.classList.remove('input-error', 'input-success');
+          passwordError.classList.remove('visible');
+          return false;
+        }
+
+        if (hasUpper && hasSymbol) {
+          passwordInput.classList.remove('input-error');
+          passwordInput.classList.add('input-success');
+          passwordError.classList.remove('visible');
+          return true;
+        } else {
+          passwordInput.classList.remove('input-success');
+          passwordInput.classList.add('input-error');
+          passwordError.classList.add('visible');
+          return false;
+        }
+      }
+
+      emailInput.addEventListener('input', validateEmail);
+      passwordInput.addEventListener('input', validatePassword);
+
+      togglePassword.addEventListener('click', function() {
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          togglePassword.textContent = '🙈';
+        } else {
+          passwordInput.type = 'password';
+          togglePassword.textContent = '👁';
+        }
+      });
+
+      function showToast(message, type) {
+        loginToast.textContent = message;
+        loginToast.className = 'login-toast toast-' + type + ' show';
+        setTimeout(function() {
+          loginToast.classList.remove('show');
+        }, 3500);
+      }
+
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var emailValid = validateEmail();
+        var passwordValid = validatePassword();
+
+        if (!emailInput.value.trim()) {
+          emailInput.classList.add('input-error');
+          emailError.textContent = '⚠ Email is required';
+          emailError.classList.add('visible');
+          emailValid = false;
+        }
+
+        if (!passwordInput.value) {
+          passwordInput.classList.add('input-error');
+          passwordError.textContent = '⚠ Password is required';
+          passwordError.classList.add('visible');
+          passwordValid = false;
+        }
+
+        if (!emailValid || !passwordValid) {
+          showToast('❌ Please fix the errors above', 'error');
+          return;
+        }
+
+        showToast('✅ Login successful! Redirecting...', 'success');
+        setTimeout(function() {
+          window.location.href = 'index.html';
+        }, 1800);
+      });
+    })();
+  </script>
+
+</body>
+
+</html>
