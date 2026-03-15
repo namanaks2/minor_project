@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>All College Clubs — Campus Merch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse all college clubs and societies. Order custom bulk merchandise for your club.">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .clubs-page {
+      min-height: 100vh;
+      padding: 120px 8% 80px;
+    }
+    .clubs-page-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .clubs-page-header h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: linear-gradient(130deg, #ffffff 40%, #5b8cff 70%, #00f5a0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .clubs-page-header p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 30px;
+      transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 0.7; }
+    .clubs-directory {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .dir-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 30px 24px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .dir-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px rgba(91,140,255,0.18);
+      border-color: var(--primary);
+    }
+    .dir-icon { font-size: 2.5rem; }
+    .dir-card h3 { font-size: 1.05rem; font-weight: 700; }
+    .dir-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+    .dir-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin: 4px 0 8px;
+    }
+    .dir-tags span {
+      background: rgba(91,140,255,0.12);
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 50px;
+    }
+    .dir-card .btn-primary {
+      margin-top: auto;
+      padding: 10px 22px;
+      font-size: 0.88rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <header id="navbar" class="navbar scrolled">
+    <a href="index.html" class="logo" style="text-decoration:none;color:inherit">Campus<span>Merch</span></a>
+    <nav class="nav-links">
+      <a href="index.html#home" class="nav-link">Home</a>
+      <a href="index.html#shop" class="nav-link">Shop</a>
+      <a href="index.html#bulkorders" class="nav-link active">Bulk Orders</a>
+      <a href="index.html#newsletter" class="nav-link">Newsletter</a>
+    </nav>
+    <div id="hamburger" class="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <main class="clubs-page">
+    <a href="index.html#bulkorders" class="back-link">← Back to Bulk Orders</a>
+    <div class="clubs-page-header">
+      <h1>All College Clubs & Societies</h1>
+      <p>Browse every club on campus. Click "Enquire Now" to order custom merch for your team, event, or fest.</p>
+    </div>
+
+    <div class="clubs-directory">
+
+      <div class="dir-card">
+        <div class="dir-icon">⚽</div>
+        <h3>Sports Club</h3>
+        <p>All sports facilities — custom jerseys, track pants, and sports tees for your team.</p>
+        <div class="dir-tags">
+          <span>Jerseys</span><span>Sports Tees</span><span>Track Wear</span>
+        </div>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Sports%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Sports%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-icon">🔬</div>
+        <h3>Tech Nexus Club</h3>
+        <p>Science & tech enthusiasts — tees with formulas, laws, and science humor.</p>
+        <div class="dir-tags">
+          <span>Formula Tees</span><span>Science Humor</span><span>Club Hoodies</span>
+        </div>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Tech%20Nexus%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20Tech%20Nexus%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-icon">🎨</div>
+        <h3>Melange Club</h3>
+        <p>Fashion Designing Club — special event uniforms, runway outfits, branded apparel.</p>
+        <div class="dir-tags">
+          <span>Event Uniforms</span><span>Custom Outfits</span><span>Club Apparel</span>
+        </div>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Roopantr%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20Roopantr%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-icon">🎭</div>
+        <h3>Cultural Club</h3>
+        <p>Dance & singing club — matching performance tees, stage outfits, team merch.</p>
+        <div class="dir-tags">
+          <span>Performance Tees</span><span>Stage Outfits</span><span>Team Merch</span>
+        </div>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Cultural%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Cultural%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-icon">🏛️</div>
+        <h3>MUN Club</h3>
+        <p>Model United Nations — custom badges, delegate tees, anchor shirts, and conference kits.</p>
+        <div class="dir-tags">
+          <span>MUN Badges</span><span>Anchor Tees</span><span>Delegate Kits</span>
+        </div>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20MUN%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20MUN%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-icon">📸</div>
+        <h3>Mediaverse Club</h3>
+        <p>Shoots, exhibitions & reels — custom tees, hoodies, and branded camera straps.</p>
+        <div class="dir-tags">
+          <span>Club Tees</span><span>Photo Hoodies</span><span>Camera Straps</span>
+        </div>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Photography%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Photography%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-icon">🎵</div>
+        <h3>Management Club</h3>
+        <p>Printed T-shirts, Caps, Customized Stationary and many more.</p>
+        <div class="dir-tags">
+          <span>Band Tees</span><span>Concert Merch</span><span>Hoodies</span>
+        </div>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Music%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Music%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-icon">📝</div>
+        <h3>Environmental Club</h3>
+        <p>Reusable Items, Customized Tote Bags, Eco-Friendly Stationary and Plant-Based Merch.</p>
+        <div class="dir-tags">
+          <span>Debate Tees</span><span>Fest Merch</span><span>Notebooks</span>
+        </div>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Literary%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Literary%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-icon">🤝</div>
+        <h3>Dr. APJ Abduk Kalam Science Society</h3>
+        <p>Quantum Hoodie, Funny Quotes Tshirts, Cosmic Caps and many more.</p>
+        <div class="dir-tags">
+          <span>Volunteer Tees</span><span>Campaign Merch</span><span>Caps</span>
+        </div>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Social%20Service%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Social%20Service%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-icon">🎮</div>
+        <h3>DIA Club</h3>
+        <p>Designer T-Shirts, SketchBooks adn Tote Bags.</p>
+        <div class="dir-tags">
+          <span>Laptop Stickers</span><span>Exhibition Badges</span><span>Mousepads</span>
+        </div>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Gaming%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Gaming%20%26%20Esports%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-icon">🧘</div>
+        <h3>Chetna Society</h3>
+        <p>Inspirational T-Shirts,Wrist Bands and many more. </p>
+        <div class="dir-tags">
+          <span>Volunteer Jackets</span><span>Event Badges</span><span>Accessories</span>
+        </div>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Wellness%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Wellness%20%26%20Yoga%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-icon">🎬</div>
+        <h3>Health Society</h3>
+        <p>Awareness Tshirts, Volunteer Vests, etc.</p>
+        <div class="dir-tags">
+          <span>Crew Tees</span><span>Water Bottles</span><span>Headbands</span>
+        </div>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Film%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Film%20%26%20Media%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="logo footer-logo">Campus<span>Merch</span></div>
+    </div>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <h4 class="footer-heading">Quick Links</h4>
+        <a href="index.html#home">Home</a>
+        <a href="index.html#shop">Shop</a>
+        <a href="index.html#bulkorders">Bulk Orders</a>
+      </div>
+      <div class="footer-team">
+        <h4 class="footer-heading">Our Team</h4>
+        <p>Naman Gupta</p>
+        <p>Aarav Chauhan</p>
+        <p>Paras Jain</p>
+        <p>Tanvi Choudhary</p>
+        <p>Anupriya Agarwal</p>
+      </div>
+    </div>
+    <p class="footer-copy">© 2026 Campus Merch Platform</p>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const navLinks = document.querySelector(".nav-links");
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("open");
+      navLinks.classList.toggle("open");
+    });
+    navLinks.addEventListener("click", e => {
+      if (e.target.classList.contains("nav-link")) {
+        hamburger.classList.remove("open");
+        navLinks.classList.remove("open");
+      }
+    });
+  </script>
+</body>
+
+</html>

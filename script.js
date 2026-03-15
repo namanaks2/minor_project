@@ -34,6 +34,8 @@ const products = [
   { id: 6, name: "Tote Bag",         price: 399,  cat: "Accessories", badge: "",           img: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=400" },
   { id: 7, name: "Sticker Pack",     price: 149,  cat: "Stationery",  badge: "Popular",    img: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=400" },
   { id: 8, name: "Campus Polo",      price: 899,  cat: "Apparel",     badge: "",           img: "https://images.unsplash.com/photo-1598032895397-b9472444bf93?w=400" },
+  { id: 9, name: "Custom ID Straps", price: 199,  cat: "Accessories", badge: "Customizable", img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400" },
+  { id: 10, name: "Duty Badges",     price: 149,  cat: "Accessories", badge: "New",          img: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400" },
 ];
 
 // ── Toast Notification ─────────────────────────
@@ -52,7 +54,7 @@ window.addEventListener("scroll", () => {
 });
 
 // ── Active Nav Link on Scroll ──────────────────
-const sections = ["home", "shop", "customize", "clubs", "newsletter"];
+const sections = ["home", "shop", "customize", "clubs", "bulkorders", "newsletter"];
 function updateActiveNavLink() {
   const scrollPos = window.scrollY + 120;
   sections.forEach(id => {
