@@ -11,6 +11,69 @@
   --success: #00f5a0;
 }
 
+[data-theme="light"] {
+  --primary: #3b6ff0;
+  --secondary: #00c97e;
+  --bg: linear-gradient(135deg, #f0f4ff, #e8edfb);
+  --text: #1a1a2e;
+  --muted: #5a6178;
+  --card-bg: rgba(0,0,0,0.03);
+  --card-border: rgba(0,0,0,0.08);
+  --danger: #e04545;
+  --success: #00a86b;
+}
+
+[data-theme="light"] .login-card {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(59,111,240,0.12);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.08), 0 0 60px rgba(59,111,240,0.04);
+}
+[data-theme="light"] .login-card:hover {
+  box-shadow: 0 24px 80px rgba(0,0,0,0.1), 0 0 80px rgba(59,111,240,0.08);
+}
+
+[data-theme="light"] .login-heading h1 {
+  background: linear-gradient(130deg, #1a1a2e 40%, #3b6ff0 70%, #00c97e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme="light"] .login-orb1 {
+  background: radial-gradient(circle, rgba(59,111,240,0.1), transparent 70%);
+}
+[data-theme="light"] .login-orb2 {
+  background: radial-gradient(circle, rgba(0,201,126,0.08), transparent 70%);
+}
+[data-theme="light"] .login-orb3 {
+  background: radial-gradient(circle, rgba(59,111,240,0.06), transparent 70%);
+}
+
+[data-theme="light"] .input-wrap input {
+  background: rgba(0,0,0,0.02);
+}
+[data-theme="light"] .input-wrap input:focus {
+  background: rgba(59,111,240,0.04);
+}
+
+[data-theme="light"] .login-btn {
+  background: linear-gradient(135deg, #3b6ff0, #2a57d4);
+}
+
+[data-theme="light"] .back-home {
+  background: rgba(0,0,0,0.03);
+  border-color: rgba(0,0,0,0.08);
+}
+[data-theme="light"] .back-home:hover {
+  background: rgba(0,0,0,0.06);
+  border-color: rgba(0,0,0,0.15);
+}
+
+[data-theme="light"] .req-tag {
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.08);
+}
+
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -96,7 +159,7 @@ body {
   border-radius: 24px;
   padding: 48px 40px;
   box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 60px rgba(91,140,255,0.06);
-  transition: box-shadow 0.4s ease;
+  transition: box-shadow 0.4s ease, background 0.4s ease;
 }
 
 .login-card:hover {
