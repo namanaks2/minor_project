@@ -1197,3 +1197,78 @@ section {
 .footer .footer-links #logout-btn {
   margin-top: 0.5rem;
 }
+
+
+/* =============================================
+   THEME TOGGLE
+   ============================================= */
+.theme-toggle {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  width: 60px;
+  height: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+body.light {
+  --bg: linear-gradient(135deg, #fdfdfd, #635779b8);
+  --text: #0b1440;
+  --muted: #5a6a9a;
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(0, 0, 0, 0.1);
+}
+
+body.light .navbar.scrolled {
+  background: rgba(120, 116, 166, 0.412);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.1);
+}
+
+body.light .toast {
+  background: rgba(240, 244, 255, 0.95);
+  color: #0b1440;
+  border-color: var(--primary);
+}
+
+body.light .cart-sidebar {
+  background: #f0f4ff;
+}
+
+body.light .custom-form select option {
+  background: #f0f4ff;
+}
+
+body.light .section-title,
+body.light .newsletter h2 {
+  background: linear-gradient(90deg, #0b1440, #5a6a9a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.light .hero h1 {
+  background: linear-gradient(130deg, #0b1440 40%, #5b8cff 70%, #00c47a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.light .footer {
+  background: rgba(120, 116, 166, 0.412);
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light .login-body {
+  background: linear-gradient(135deg, #d0e4f7, #b8d0ee);
+}
