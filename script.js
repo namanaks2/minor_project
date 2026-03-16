@@ -353,3 +353,21 @@ document.getElementById("newsletterForm").addEventListener("submit", e => {
 // ── Init ───────────────────────────────────────
 renderProducts(products);
 updateCartUI();
+
+// ── Theme Toggle ──────────────────────────────
+const themeToggleBtn = document.getElementById("themeToggle");
+if (themeToggleBtn) {
+  const applyTheme = (isLight) => {
+    document.body.classList.toggle("light", isLight);
+    themeToggleBtn.textContent = isLight ? "☀️" : "🌙";
+  };
+
+  const savedTheme = localStorage.getItem("theme") || "dark";
+  applyTheme(savedTheme === "light");
+
+  themeToggleBtn.addEventListener("click", () => {
+    const isLight = !document.body.classList.contains("light");
+    applyTheme(isLight);
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+  });
+}
