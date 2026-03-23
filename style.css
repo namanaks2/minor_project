@@ -215,6 +215,15 @@ section {
 .logo span {
   color: var(--secondary);
 }
+.logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+.footer-logo .logo-img {
+  height: 48px;
+}
 .nav-links {
   display: flex;
   gap: 2rem;

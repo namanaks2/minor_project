@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <title>All College Clubs — Campus Merch</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Browse all college clubs and societies. Order custom bulk merchandise for your club.">
+  <meta name="description"
+    content="Browse all college clubs and societies. Order custom bulk merchandise for your club.">
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -13,10 +14,12 @@
       min-height: 100vh;
       padding: 120px 8% 80px;
     }
+
     .clubs-page-header {
       text-align: center;
       margin-bottom: 50px;
     }
+
     .clubs-page-header h1 {
       font-size: 2.4rem;
       font-weight: 800;
@@ -26,6 +29,7 @@
       -webkit-text-fill-color: transparent;
       margin-bottom: 12px;
     }
+
     .clubs-page-header p {
       color: var(--muted);
       font-size: 1rem;
@@ -33,6 +37,7 @@
       margin: 0 auto;
       line-height: 1.7;
     }
+
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -44,12 +49,17 @@
       margin-bottom: 30px;
       transition: opacity 0.2s;
     }
-    .back-link:hover { opacity: 0.7; }
+
+    .back-link:hover {
+      opacity: 0.7;
+    }
+
     .clubs-directory {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 24px;
     }
+
     .dir-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -62,14 +72,28 @@
       align-items: center;
       gap: 10px;
     }
+
     .dir-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 16px 40px rgba(91,140,255,0.18);
+      box-shadow: 0 16px 40px rgba(91, 140, 255, 0.18);
       border-color: var(--primary);
     }
-    .dir-icon { font-size: 2.5rem; }
-    .dir-card h3 { font-size: 1.05rem; font-weight: 700; }
-    .dir-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+
+    .dir-icon {
+      font-size: 2.5rem;
+    }
+
+    .dir-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .dir-card p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
     .dir-tags {
       display: flex;
       flex-wrap: wrap;
@@ -77,14 +101,16 @@
       justify-content: center;
       margin: 4px 0 8px;
     }
+
     .dir-tags span {
-      background: rgba(91,140,255,0.12);
+      background: rgba(91, 140, 255, 0.12);
       color: var(--primary);
       font-size: 0.72rem;
       font-weight: 600;
       padding: 4px 12px;
       border-radius: 50px;
     }
+
     .dir-card .btn-primary {
       margin-top: auto;
       padding: 10px 22px;
@@ -97,7 +123,8 @@
 
 <body>
   <header id="navbar" class="navbar scrolled">
-    <a href="index.html" class="logo" style="text-decoration:none;color:inherit">Campus<span>Merch</span></a>
+    <a href="index.html" class="logo" style="text-decoration:none;color:inherit"><img src="logo_campusmerch.png"
+        alt="CampusMerch" class="logo-img"></a>
     <nav class="nav-links">
       <a href="index.html#home" class="nav-link">Home</a>
       <a href="index.html#shop" class="nav-link">Shop</a>
@@ -110,7 +137,7 @@
   </header>
 
   <main class="clubs-page">
-    <a href="index.html#bulkorders" class="back-link">← Back to Bulk Orders</a>
+    <a href="home.html" class="back-link">← Back to Home Page</a>
     <div class="clubs-page-header">
       <h1>All College Clubs & Societies</h1>
       <p>Browse every club on campus. Click "Enquire Now" to order custom merch for your team, event, or fest.</p>
@@ -125,7 +152,8 @@
         <div class="dir-tags">
           <span>Jerseys</span><span>Sports Tees</span><span>Track Wear</span>
         </div>
-        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Sports%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Sports%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Sports%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Sports%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!"
+          class="btn-primary">Enquire Now →</a>
       </div>
 
       <div class="dir-card">
@@ -135,7 +163,8 @@
         <div class="dir-tags">
           <span>Formula Tees</span><span>Science Humor</span><span>Club Hoodies</span>
         </div>
-        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Tech%20Nexus%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20Tech%20Nexus%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Tech%20Nexus%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20Tech%20Nexus%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!"
+          class="btn-primary">Enquire Now →</a>
       </div>
 
       <div class="dir-card">
@@ -145,7 +174,8 @@
         <div class="dir-tags">
           <span>Event Uniforms</span><span>Custom Outfits</span><span>Club Apparel</span>
         </div>
-        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Roopantr%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20Roopantr%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Roopantr%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20Roopantr%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!"
+          class="btn-primary">Enquire Now →</a>
       </div>
 
       <div class="dir-card">
@@ -155,7 +185,8 @@
         <div class="dir-tags">
           <span>Performance Tees</span><span>Stage Outfits</span><span>Team Merch</span>
         </div>
-        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Cultural%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Cultural%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Cultural%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Cultural%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!"
+          class="btn-primary">Enquire Now →</a>
       </div>
 
       <div class="dir-card">
@@ -165,7 +196,8 @@
         <div class="dir-tags">
           <span>MUN Badges</span><span>Anchor Tees</span><span>Delegate Kits</span>
         </div>
-        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20MUN%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20MUN%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20MUN%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20MUN%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!"
+          class="btn-primary">Enquire Now →</a>
       </div>
 
       <div class="dir-card">
@@ -175,7 +207,8 @@
         <div class="dir-tags">
           <span>Club Tees</span><span>Photo Hoodies</span><span>Camera Straps</span>
         </div>
-        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Photography%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Photography%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Photography%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Photography%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!"
+          class="btn-primary">Enquire Now →</a>
       </div>
 
       <div class="dir-card">
@@ -185,7 +218,8 @@
         <div class="dir-tags">
           <span>Band Tees</span><span>Concert Merch</span><span>Hoodies</span>
         </div>
-        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Music%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Music%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Music%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Music%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!"
+          class="btn-primary">Enquire Now →</a>
       </div>
 
       <div class="dir-card">
@@ -195,7 +229,8 @@
         <div class="dir-tags">
           <span>Debate Tees</span><span>Fest Merch</span><span>Notebooks</span>
         </div>
-        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Literary%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Literary%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Literary%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Literary%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!"
+          class="btn-primary">Enquire Now →</a>
       </div>
 
       <div class="dir-card">
@@ -205,7 +240,8 @@
         <div class="dir-tags">
           <span>Volunteer Tees</span><span>Campaign Merch</span><span>Caps</span>
         </div>
-        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Social%20Service%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Social%20Service%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Social%20Service%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Social%20Service%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!"
+          class="btn-primary">Enquire Now →</a>
       </div>
 
       <div class="dir-card">
@@ -215,7 +251,8 @@
         <div class="dir-tags">
           <span>Laptop Stickers</span><span>Exhibition Badges</span><span>Mousepads</span>
         </div>
-        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Gaming%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Gaming%20%26%20Esports%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Gaming%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Gaming%20%26%20Esports%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!"
+          class="btn-primary">Enquire Now →</a>
       </div>
 
       <div class="dir-card">
@@ -225,7 +262,8 @@
         <div class="dir-tags">
           <span>Volunteer Jackets</span><span>Event Badges</span><span>Accessories</span>
         </div>
-        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Wellness%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Wellness%20%26%20Yoga%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Wellness%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Wellness%20%26%20Yoga%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!"
+          class="btn-primary">Enquire Now →</a>
       </div>
 
       <div class="dir-card">
@@ -235,7 +273,8 @@
         <div class="dir-tags">
           <span>Crew Tees</span><span>Water Bottles</span><span>Headbands</span>
         </div>
-        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Film%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Film%20%26%20Media%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!" class="btn-primary">Enquire Now →</a>
+        <a href="mailto:campusmerch@university.edu?subject=Bulk%20Order%20—%20Film%20Club&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe'd%20like%20to%20place%20a%20bulk%20order%20for%20the%20Film%20%26%20Media%20Club.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!"
+          class="btn-primary">Enquire Now →</a>
       </div>
 
     </div>
@@ -243,7 +282,7 @@
 
   <footer class="footer">
     <div class="footer-top">
-      <div class="logo footer-logo">Campus<span>Merch</span></div>
+      <div class="logo footer-logo"><img src="logo_campusmerch.png" alt="CampusMerch" class="logo-img"></div>
     </div>
     <div class="footer-inner">
       <div class="footer-links">
