@@ -26,16 +26,14 @@ let activeCategory = "all";
 
 // ── Product Data ───────────────────────────────
 const products = [
-  { id: 1, name: "Campus Hoodie",    price: 1499, cat: "Apparel",     badge: "Bestseller", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400" },
-  { id: 2, name: "Dept T-Shirt",     price: 799,  cat: "Apparel",     badge: "",           img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400" },
-  { id: 3, name: "Campus Cap",       price: 499,  cat: "Accessories", badge: "New",        img: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=400" },
-  { id: 4, name: "College Notebook", price: 299,  cat: "Stationery",  badge: "",           img: "https://images.unsplash.com/photo-1585386959984-a41552231658?w=400" },
-  { id: 5, name: "Varsity Jacket",   price: 2499, cat: "Apparel",     badge: "Limited",    img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400" },
-  { id: 6, name: "Tote Bag",         price: 399,  cat: "Accessories", badge: "",           img: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=400" },
-  { id: 7, name: "Sticker Pack",     price: 149,  cat: "Stationery",  badge: "Popular",    img: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=400" },
-  { id: 8, name: "Campus Polo",      price: 899,  cat: "Apparel",     badge: "",           img: "https://images.unsplash.com/photo-1598032895397-b9472444bf93?w=400" },
-  { id: 9, name: "Custom ID Straps", price: 199,  cat: "Accessories", badge: "Customizable", img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400" },
-  { id: 10, name: "Duty Badges",     price: 149,  cat: "Accessories", badge: "New",          img: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400" },
+  { id: 1, name: "Campus Hoodie ",    price: 1499, cat: "Apparel",     badge: "Bestseller", img: "campus hoodie.jfif" },
+  { id: 2, name: "Campus T-Shirt",     price: 799,  cat: "Apparel",     badge: "",           img: "campus tshirt.jfif" },
+  { id: 3, name: "Campus Cap",       price: 499,  cat: "Accessories", badge: "New",        img: "campus cap.jfif" },
+  { id: 4, name: "College Notebook", price: 299,  cat: "Stationery",  badge: "",           img: "notebook-removebg-preview.png" },
+  { id: 6, name: "Tote Bag",         price: 399,  cat: "Accessories", badge: "",           img: "totebag.jfif" },
+  { id: 7, name: "Sticker Pack",     price: 149,  cat: "Stationery",  badge: "Popular",    img: "stickers.jfif" },
+  { id: 9, name: "Custom ID Straps", price: 199,  cat: "Accessories", badge: "Customizable", img: "custom_id_straps-removebg-preview.png" },
+  { id: 10, name: "Duty Badges",     price: 149,  cat: "Accessories", badge: "New",          img: "badge1.jfif" },
 ];
 
 // ── Toast Notification ─────────────────────────
@@ -331,6 +329,38 @@ document.getElementById("newsletterForm").addEventListener("submit", e => {
   msg.classList.remove("hidden");
   document.getElementById("newsletterEmail").value = "";
   showToast("📬 Subscribed successfully!");
+});
+
+// ── Theme Toggle ──────────────────────────────
+const themeToggle = document.getElementById("themeToggle");
+const htmlElement = document.documentElement;
+const savedTheme = localStorage.getItem("theme") || "dark";
+
+// Set initial theme
+if (savedTheme === "light") {
+  htmlElement.setAttribute("data-theme", "light");
+  themeToggle.textContent = "☀️";
+} else {
+  htmlElement.removeAttribute("data-theme");
+  themeToggle.textContent = "🌙";
+}
+
+// Toggle theme on button click
+themeToggle.addEventListener("click", (e) => {
+  e.preventDefault();
+  const currentTheme = htmlElement.getAttribute("data-theme");
+  
+  if (currentTheme === "light") {
+    htmlElement.removeAttribute("data-theme");
+    localStorage.setItem("theme", "dark");
+    themeToggle.textContent = "🌙";
+    showToast("🌙 Dark mode enabled");
+  } else {
+    htmlElement.setAttribute("data-theme", "light");
+    localStorage.setItem("theme", "light");
+    themeToggle.textContent = "☀️";
+    showToast("☀️ Light mode enabled");
+  }
 });
 
 // ── Init ───────────────────────────────────────
