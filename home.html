@@ -111,6 +111,16 @@
     <h2 class="section-title reveal">Customize Your Merch</h2>
     <div class="customize-container reveal">
       <div class="custom-form">
+        <label>Merch Type</label>
+        <select id="customMerchType">
+          <option value="">Select Merch Type</option>
+          <option value="T-Shirt">T-Shirt</option>
+          <option value="Hoodie">Hoodie</option>
+          <option value="ID Card Strap">ID Card Strap</option>
+          <option value="Badge">Badge</option>
+          <option value="Cap">Cap</option>
+        </select>
+
         <label>Your Name</label>
         <input type="text" id="customName" placeholder="e.g. Arjun Sharma">
 
@@ -138,7 +148,7 @@
           <option value="2028">2028</option>
         </select>
 
-        <label>T-Shirt Color</label>
+        <label>Merch Color</label>
         <div class="color-picker shirt-color-picker">
           <button class="shirt-swatch active" data-shirt="#1a2a5e" style="background:#1a2a5e" title="Navy Blue"></button>
           <button class="shirt-swatch" data-shirt="#0d0d0d" style="background:#0d0d0d" title="Black"></button>
@@ -160,12 +170,19 @@
           <button class="color-swatch" data-color="#0d0d0d" style="background:#0d0d0d"></button>
         </div>
 
-        <label>Text Placement</label>
+        <!-- <label>Text Placement</label>
         <div class="placement-options">
           <button class="placement-btn active" data-placement="front-center">Front Center</button>
           <button class="placement-btn" data-placement="front-top">Front Top</button>
           <button class="placement-btn" data-placement="front-bottom">Front Bottom</button>
           <button class="placement-btn" data-placement="back-center">Back Center</button>
+        </div> -->
+
+        <label>Quantity</label>
+        <div class="qty-selector">
+          <button type="button" class="qty-ctrl minus" id="customQtyMinus">−</button>
+          <input type="number" id="customQty" value="1" min="1" max="100" readonly>
+          <button type="button" class="qty-ctrl plus" id="customQtyPlus">+</button>
         </div>
 
         <button id="addCustomToCart" class="btn-primary">Add Custom to Cart</button>

@@ -20,23 +20,22 @@ const cartTotalEl    = document.getElementById("cartTotal");
 const searchInput    = document.getElementById("searchInput");
 const noResults      = document.getElementById("noResults");
 
-// ── State ─────────────────────────────────────
-let cart = [];                     // [{ product, qty }]
+
+let cart = [];                    
 let activeCategory = "all";
 
-// ── Product Data ───────────────────────────────
 const products = [
-  { id: 1, name: "Campus Hoodie ",    price: 1499, cat: "Apparel",     badge: "Bestseller", img: "campus hoodie.jfif" },
-  { id: 2, name: "Campus T-Shirt",     price: 799,  cat: "Apparel",     badge: "",           img: "campus tshirt.jfif" },
-  { id: 3, name: "Campus Cap",       price: 499,  cat: "Accessories", badge: "New",        img: "campus cap.jfif" },
-  { id: 4, name: "College Notebook", price: 299,  cat: "Stationery",  badge: "",           img: "notebook-removebg-preview.png" },
-  { id: 6, name: "Tote Bag",         price: 399,  cat: "Accessories", badge: "",           img: "totebag.jfif" },
-  { id: 7, name: "Sticker Pack",     price: 149,  cat: "Stationery",  badge: "Popular",    img: "stickers.jfif" },
-  { id: 9, name: "Custom ID Straps", price: 199,  cat: "Accessories", badge: "Customizable", img: "custom_id_straps-removebg-preview.png" },
-  { id: 10, name: "Duty Badges",     price: 149,  cat: "Accessories", badge: "New",          img: "badge1.jfif" },
+  { id: 1, name: "Campus Hoodie ",    price: 999, cat: "Apparel",     badge: "Bestseller", img: "campus hoodie.jfif" },
+  { id: 2, name: "Campus T-Shirt",     price: 299,  cat: "Apparel",     badge: "",           img: "campus tshirt.jfif" },
+  { id: 3, name: "Campus Cap",       price: 4199,  cat: "Accessories", badge: "New",        img: "campus cap.jfif" },
+  { id: 4, name: "College Notebook", price: 99,  cat: "Stationery",  badge: "",           img: "notebook-removebg-preview.png" },
+  { id: 6, name: "Tote Bag",         price: 249,  cat: "Accessories", badge: "",           img: "totebag.jfif" },
+  { id: 7, name: "Sticker Pack",     price: 89,  cat: "Stationery",  badge: "Popular",    img: "stickers.jfif" },
+  { id: 9, name: "Custom ID Straps", price: 159,  cat: "Accessories", badge: "Customizable", img: "custom_id_straps-removebg-preview.png" },
+  { id: 10, name: "Duty Badges",     price: 199,  cat: "Accessories", badge: "New",          img: "badge1.png" },
 ];
 
-// ── Toast Notification ─────────────────────────
+
 let toastTimer;
 function showToast(msg) {
   clearTimeout(toastTimer);
@@ -284,35 +283,61 @@ document.querySelectorAll(".placement-btn").forEach(btn => {
   });
 });
 
+// Quantity controls
+const customQtyInput = document.getElementById("customQty");
+document.getElementById("customQtyMinus").addEventListener("click", () => {
+  let val = parseInt(customQtyInput.value);
+  if (val > 1) customQtyInput.value = val - 1;
+});
+document.getElementById("customQtyPlus").addEventListener("click", () => {
+  let val = parseInt(customQtyInput.value);
+  if (val < 100) customQtyInput.value = val + 1;
+});
+
+const merchPrices = {
+  "T-Shirt": 299,
+  "Hoodie": 999,
+  "ID Card Strap": 159,
+  "Badge": 199,
+  "Cap": 4199,
+};
+
 // Add custom merch to cart
 document.getElementById("addCustomToCart").addEventListener("click", () => {
+  const merchType = document.getElementById("customMerchType").value;
   const name = document.getElementById("customName").value.trim();
   const dept = document.getElementById("customDept").value;
   const year = document.getElementById("customYear").value;
+  const qty = parseInt(customQtyInput.value) || 1;
 
-  if (!name || !dept || !year) {
+  if (!merchType || !name || !dept || !year) {
     showToast("⚠️ Please fill in all customization fields");
     return;
   }
 
   const customProduct = {
     id: `custom-${Date.now()}`,
-    name: `Custom: ${name} | ${dept} | ${year}`,
-    price: 999,
+    name: `Custom ${merchType}: ${name} | ${dept} | ${year}`,
+    price: merchPrices[merchType] || 499,
     img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400",
   };
-  addToCart(customProduct);
+
+  for (let i = 0; i < qty; i++) {
+    addToCart(customProduct);
+  }
 });
 
 document.getElementById("personalReqBtn").addEventListener("click", () => {
+  const merchType = document.getElementById("customMerchType").value;
   const name = document.getElementById("customName").value.trim();
   const dept = document.getElementById("customDept").value;
   const year = document.getElementById("customYear").value;
+  const qty = document.getElementById("customQty").value;
   const subject = encodeURIComponent("Personal Merch Requirements – Campus Merch");
   const body = encodeURIComponent(
-    `Hi Campus Merch Team,\n\nI'd like to share my personal requirements for a custom T-shirt:\n\n` +
-    `Name: ${name || "—"}\nDepartment: ${dept || "—"}\nBatch Year: ${year || "—"}\n\n` +
-    `Additional Requirements:\n[Please describe your design, size, quantity, or any special requests here]\n\nThank you!`
+    `Hi Campus Merch Team,\n\nI'd like to share my personal requirements for custom merch:\n\n` +
+    `Merch Type: ${merchType || "—"}\nName: ${name || "—"}\nDepartment: ${dept || "—"}\nBatch Year: ${year || "—"}\nQuantity: ${qty || "1"}\n\n` +
+    `Additional Requirements:\n[Please describe your design, size, or any special requests here]\n\nThank you!`
   );
   window.open(`mailto:campusmerch@university.edu?subject=${subject}&body=${body}`, "_blank");
   showToast("📧 Opening your email client…");
