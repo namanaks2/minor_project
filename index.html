@@ -11,6 +11,13 @@
 
 <body>
 
+  <script>
+    (function() {
+      var saved = localStorage.getItem('theme') || 'dark';
+      if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    })();
+  </script>
+
   <!-- <a href="index.html" class="back-home" id="backHome">← Back to Store</a> -->
 
   <div class="login-bg-orb login-orb1"></div>
@@ -18,6 +25,8 @@
   <div class="login-bg-orb login-orb3"></div>
 
   <div id="loginToast" class="login-toast"></div>
+
+  <button id="loginThemeToggle" class="login-theme-toggle" aria-label="Toggle theme">🌙</button>
 
   <div class="login-wrapper">
     <div class="login-card">
@@ -192,9 +201,28 @@
         }
 
         showToast('✅ Login successful! Redirecting...', 'success');
+        sessionStorage.setItem('themeTransition', 'true');
         setTimeout(function() {
           window.location.href = 'home.html';
         }, 1800);
+      });
+
+      var loginThemeBtn = document.getElementById('loginThemeToggle');
+      var htmlEl = document.documentElement;
+      var currentTheme = localStorage.getItem('theme') || 'dark';
+      loginThemeBtn.textContent = currentTheme === 'light' ? '☀️' : '🌙';
+
+      loginThemeBtn.addEventListener('click', function() {
+        var cur = htmlEl.getAttribute('data-theme');
+        if (cur === 'light') {
+          htmlEl.removeAttribute('data-theme');
+          localStorage.setItem('theme', 'dark');
+          loginThemeBtn.textContent = '🌙';
+        } else {
+          htmlEl.setAttribute('data-theme', 'light');
+          localStorage.setItem('theme', 'light');
+          loginThemeBtn.textContent = '☀️';
+        }
       });
     })();
   </script>

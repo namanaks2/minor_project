@@ -27,7 +27,7 @@ let activeCategory = "all";
 const products = [
   { id: 1, name: "Campus Hoodie ",    price: 999, cat: "Apparel",     badge: "Bestseller", img: "campus hoodie.jfif" },
   { id: 2, name: "Campus T-Shirt",     price: 299,  cat: "Apparel",     badge: "",           img: "campus tshirt.jfif" },
-  { id: 3, name: "Campus Cap",       price: 4199,  cat: "Accessories", badge: "New",        img: "campus cap.jfif" },
+  { id: 3, name: "Campus Cap",       price: 199,  cat: "Accessories", badge: "New",        img: "campus cap.jfif" },
   { id: 4, name: "College Notebook", price: 99,  cat: "Stationery",  badge: "",           img: "notebook-removebg-preview.png" },
   { id: 6, name: "Tote Bag",         price: 249,  cat: "Accessories", badge: "",           img: "totebag.jfif" },
   { id: 7, name: "Sticker Pack",     price: 89,  cat: "Stationery",  badge: "Popular",    img: "stickers.jfif" },
@@ -387,6 +387,15 @@ themeToggle.addEventListener("click", (e) => {
     showToast("☀️ Light mode enabled");
   }
 });
+
+// ── Theme Toggle Slide-In from Login ──────────
+if (sessionStorage.getItem("themeTransition") === "true") {
+  sessionStorage.removeItem("themeTransition");
+  themeToggle.classList.add("slide-in");
+  themeToggle.addEventListener("animationend", () => {
+    themeToggle.classList.remove("slide-in");
+  }, { once: true });
+}
 
 // ── Init ───────────────────────────────────────
 renderProducts(products);

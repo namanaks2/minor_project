@@ -272,6 +272,33 @@ section {
   background: rgba(91,140,255,0.15);
 }
 
+@keyframes themeSlideIn {
+  0% {
+    position: fixed;
+    bottom: 28px;
+    left: 28px;
+    top: auto;
+    right: auto;
+    z-index: 9999;
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
+
+.theme-toggle.slide-in {
+  animation: themeSlideIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
 .cart-btn span {
   background: var(--secondary);
   padding: 3px 8px;
