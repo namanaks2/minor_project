@@ -169,12 +169,27 @@ function addToCart(product) {
   } else {
     cart.push({ product, qty: 1 });
   }
+  saveCartToLocalStorage();
   updateCartUI();
   showToast(`🛒 ${product.name} added to cart!`);
 }
 
+function saveCartToLocalStorage() {
+  // Convert cart objects to simple data for storage
+  const cartData = cart.map(item => ({
+    id: item.product.id,
+    name: item.product.name,
+    price: item.product.price,
+    cat: item.product.cat,
+    img: item.product.img,
+    qty: item.qty
+  }));
+  localStorage.setItem('cart', JSON.stringify(cartData));
+}
+
 function removeFromCart(productId) {
   cart = cart.filter(i => i.product.id !== productId);
+  saveCartToLocalStorage();
   updateCartUI();
 }
 
@@ -186,6 +201,7 @@ function changeQty(productId, delta) {
     removeFromCart(productId);
     return;
   }
+  saveCartToLocalStorage();
   updateCartUI();
 }
 
@@ -245,13 +261,15 @@ cartToggleBtn.addEventListener("click", e => { e.preventDefault(); openCart(); }
 closeCartBtn.addEventListener("click", closeCart);
 cartOverlay.addEventListener("click", closeCart);
 
-// Checkout placeholder
+// Checkout - Redirect to Payment Page
 document.querySelector(".checkout-btn").addEventListener("click", () => {
-  if (cart.length === 0) return;
-  showToast("🎉 Order placed successfully!");
-  cart = [];
-  updateCartUI();
-  closeCart();
+  if (cart.length === 0) {
+    showToast("⚠️ Your cart is empty!");
+    return;
+  }
+  // Save cart and redirect to payment page
+  saveCartToLocalStorage();
+  window.location.href = "payment.html";
 });
 
 // ── Customizer ────────────────────────────────
