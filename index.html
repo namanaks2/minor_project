@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Login — Campus Merch Platform</title>
@@ -12,7 +13,7 @@
 <body>
 
   <script>
-    (function() {
+    (function () {
       var saved = localStorage.getItem('theme') || 'dark';
       if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
     })();
@@ -48,15 +49,18 @@
             <input type="email" id="loginEmail" placeholder="Rollno@krmu.edu.in" autocomplete="email" required>
             <span class="input-icon">📧</span>
           </div>
-          <div class="error-text" id="emailError">⚠ Must be in format: rollno@college.edu.in or name@college.edu.in</div>
+          <div class="error-text" id="emailError">⚠ Must be in format: rollno@college.edu.in or name@college.edu.in
+          </div>
         </div>
 
         <div class="form-group">
           <label for="loginPassword">Password</label>
           <div class="input-wrap">
-            <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password" required>
+            <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password"
+              required>
             <span class="input-icon">🔑</span>
-            <button type="button" class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">👁</button>
+            <button type="button" class="toggle-password" id="togglePassword"
+              aria-label="Toggle password visibility">👁</button>
           </div>
           <div class="error-text" id="passwordError">⚠ Must contain an uppercase letter and a symbol</div>
           <div class="password-requirements">
@@ -68,16 +72,16 @@
         <button type="submit" class="login-btn" id="loginBtn">Sign In →</button>
       </form>
 
-      <div class="login-divider"><span>campus access only</span></div>
+      <div class="login-divider"><span> campus access only </span></div>
 
       <div class="login-footer">
-        Need help? <a href="mailto:campusmerch@university.edu">Contact Support</a>
+        Need help? <a href="mailto:namanaks2@gmail.com">Contact Support</a>
       </div>
     </div>
   </div>
 
   <script>
-    (function() {
+    (function () {
       var emailInput = document.getElementById('loginEmail');
       var passwordInput = document.getElementById('loginPassword');
       var emailError = document.getElementById('emailError');
@@ -157,7 +161,7 @@
       emailInput.addEventListener('input', validateEmail);
       passwordInput.addEventListener('input', validatePassword);
 
-      togglePassword.addEventListener('click', function() {
+      togglePassword.addEventListener('click', function () {
         if (passwordInput.type === 'password') {
           passwordInput.type = 'text';
           togglePassword.textContent = '🙈';
@@ -170,12 +174,12 @@
       function showToast(message, type) {
         loginToast.textContent = message;
         loginToast.className = 'login-toast toast-' + type + ' show';
-        setTimeout(function() {
+        setTimeout(function () {
           loginToast.classList.remove('show');
         }, 3500);
       }
 
-      loginForm.addEventListener('submit', function(e) {
+      loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
         var emailValid = validateEmail();
@@ -202,7 +206,7 @@
 
         showToast('✅ Login successful! Redirecting...', 'success');
         sessionStorage.setItem('themeTransition', 'true');
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = 'home.html';
         }, 1800);
       });
@@ -212,7 +216,7 @@
       var currentTheme = localStorage.getItem('theme') || 'dark';
       loginThemeBtn.textContent = currentTheme === 'light' ? '☀️' : '🌙';
 
-      loginThemeBtn.addEventListener('click', function() {
+      loginThemeBtn.addEventListener('click', function () {
         var cur = htmlEl.getAttribute('data-theme');
         if (cur === 'light') {
           htmlEl.removeAttribute('data-theme');
@@ -228,4 +232,5 @@
   </script>
 
 </body>
+
 </html>

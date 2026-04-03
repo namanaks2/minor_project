@@ -357,7 +357,7 @@ document.getElementById("personalReqBtn").addEventListener("click", () => {
     `Merch Type: ${merchType || "—"}\nName: ${name || "—"}\nDepartment: ${dept || "—"}\nBatch Year: ${year || "—"}\nQuantity: ${qty || "1"}\n\n` +
     `Additional Requirements:\n[Please describe your design, size, or any special requests here]\n\nThank you!`
   );
-  window.open(`mailto:campusmerch@university.edu?subject=${subject}&body=${body}`, "_blank");
+  window.open(`mailto:namanaks2@gmail.com?subject=${subject}&body=${body}`, "_blank");
   showToast("📧 Opening your email client…");
 });
 
