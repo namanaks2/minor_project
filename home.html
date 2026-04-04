@@ -51,7 +51,42 @@
         Cart <span id="cartCount">0</span>
       </a>
       <button id="themeToggle" class="nav-link theme-toggle" aria-label="Toggle theme">🌙</button>
-      <a href="index.html" class="nav-link" id="logout-btn">Logout</a>
+      <div class="profile-section" id="profileSection">
+        <button class="profile-trigger" id="profileTrigger" aria-label="Profile menu">
+          <span class="profile-avatar">👤</span>
+        </button>
+        <div class="profile-dropdown" id="profileDropdown">
+          <div class="profile-dropdown-header">
+            <span class="profile-dropdown-avatar">👤</span>
+            <div class="profile-dropdown-info">
+              <span class="profile-dropdown-name">Student</span>
+              <span class="profile-dropdown-email">campus@krmu.edu.in</span>
+            </div>
+          </div>
+          <div class="profile-dropdown-divider"></div>
+          <a href="#" class="profile-dropdown-item" id="profileOrders">
+            <span class="profile-item-icon">📦</span>
+            <span>Your Orders</span>
+          </a>
+          <a href="#" class="profile-dropdown-item" id="profileProfile">
+            <span class="profile-item-icon">👤</span>
+            <span>Profile</span>
+          </a>
+          <a href="#" class="profile-dropdown-item" id="profileVendor">
+            <span class="profile-item-icon">🏪</span>
+            <span>Log in as Vendor</span>
+          </a>
+          <a href="#" class="profile-dropdown-item" id="profileChangeId">
+            <span class="profile-item-icon">🔄</span>
+            <span>Change ID</span>
+          </a>
+          <div class="profile-dropdown-divider"></div>
+          <a href="index.html" class="profile-dropdown-item profile-dropdown-logout" id="profileLogout">
+            <span class="profile-item-icon">🚪</span>
+            <span>Logout</span>
+          </a>
+        </div>
+      </div>
     </nav>
     <div id="hamburger" class="hamburger">
       <span></span><span></span><span></span>

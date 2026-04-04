@@ -415,6 +415,44 @@ if (sessionStorage.getItem("themeTransition") === "true") {
   }, { once: true });
 }
 
+// ── Profile Dropdown ──────────────────────────
+const profileTrigger  = document.getElementById("profileTrigger");
+const profileDropdown = document.getElementById("profileDropdown");
+
+if (profileTrigger && profileDropdown) {
+  profileTrigger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = profileDropdown.classList.contains("open");
+    profileDropdown.classList.toggle("open");
+    profileTrigger.classList.toggle("active");
+    if (!isOpen) {
+      // Close mobile nav menu if it's open
+      hamburger.classList.remove("open");
+      navLinks.classList.remove("open");
+    }
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("#profileSection")) {
+      profileDropdown.classList.remove("open");
+      profileTrigger.classList.remove("active");
+    }
+  });
+
+  // Close dropdown when clicking a dropdown item (except logout which navigates)
+  profileDropdown.querySelectorAll(".profile-dropdown-item:not(.profile-dropdown-logout)").forEach(item => {
+    item.addEventListener("click", (e) => {
+      e.preventDefault();
+      profileDropdown.classList.remove("open");
+      profileTrigger.classList.remove("active");
+      const label = item.querySelector("span:last-child").textContent;
+      showToast(`📌 "${label}" coming soon!`);
+    });
+  });
+}
+
 // ── Init ───────────────────────────────────────
 renderProducts(products);
 updateCartUI();
+
