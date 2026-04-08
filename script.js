@@ -3,38 +3,77 @@
    ============================================= */
 
 // ── DOM References ────────────────────────────
-const navbar         = document.getElementById("navbar");
-const navLinks       = document.getElementById("navLinks");
-const hamburger      = document.getElementById("hamburger");
-const cartCountEl    = document.getElementById("cartCount");
-const productGrid    = document.getElementById("productGrid");
-const toast          = document.getElementById("toast");
-const cartSidebar    = document.getElementById("cartSidebar");
-const cartOverlay    = document.getElementById("cartOverlay");
-const closeCartBtn   = document.getElementById("closeCart");
-const cartToggleBtn  = document.getElementById("cartToggle");
-const cartItemsEl    = document.getElementById("cartItems");
-const cartEmptyEl    = document.getElementById("cartEmpty");
-const cartFooterEl   = document.getElementById("cartFooter");
-const cartTotalEl    = document.getElementById("cartTotal");
-const searchInput    = document.getElementById("searchInput");
-const noResults      = document.getElementById("noResults");
+const navbar = document.getElementById("navbar");
+const navLinks = document.getElementById("navLinks");
+const hamburger = document.getElementById("hamburger");
+const cartCountEl = document.getElementById("cartCount");
+const productGrid = document.getElementById("productGrid");
+const toast = document.getElementById("toast");
+const cartSidebar = document.getElementById("cartSidebar");
+const cartOverlay = document.getElementById("cartOverlay");
+const closeCartBtn = document.getElementById("closeCart");
+const cartToggleBtn = document.getElementById("cartToggle");
+const cartItemsEl = document.getElementById("cartItems");
+const cartEmptyEl = document.getElementById("cartEmpty");
+const cartFooterEl = document.getElementById("cartFooter");
+const cartTotalEl = document.getElementById("cartTotal");
+const searchInput = document.getElementById("searchInput");
+const noResults = document.getElementById("noResults");
 
 // ── State ─────────────────────────────────────
 let cart = [];                     // [{ product, qty }]
 let activeCategory = "all";
-let selectedColor  = "#5b8cff";
+let selectedColor = "#5b8cff";
+
+// ── Login Page ───────────────────────────────
+const loginForm = document.getElementById("loginForm");
+if (loginForm) {
+  loginForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const message = document.getElementById("message");
+
+    const validDomains = ["@krmu.edu.in", "@krmangalam.edu.in"];
+    const domainMatch = validDomains.some(domain => email.endsWith(domain));
+
+    if (!domainMatch) {
+      message.textContent = "Invalid email domain. Use campus email.";
+      return;
+    }
+
+    if (password !== "admin67") {
+      message.textContent = "Incorrect password.";
+      return;
+    }
+
+    localStorage.setItem("loggedIn", "true");
+    window.location.href = "home.html";
+  });
+}
+
+if (window.location.pathname.endsWith("home.html")) {
+  if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "index.html";
+  }
+}
+
+function logout() {
+  localStorage.removeItem("loggedIn");
+  window.location.href = "index.html";
+}
 
 // ── Product Data ───────────────────────────────
 const products = [
-  { id: 1, name: "Campus Hoodie",    price: 1499, cat: "Apparel",     badge: "Bestseller", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400" },
-  { id: 2, name: "Dept T-Shirt",     price: 799,  cat: "Apparel",     badge: "",           img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400" },
-  { id: 3, name: "Campus Cap",       price: 499,  cat: "Accessories", badge: "New",        img: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=400" },
-  { id: 4, name: "College Notebook", price: 299,  cat: "Stationery",  badge: "",           img: "https://images.unsplash.com/photo-1585386959984-a41552231658?w=400" },
-  { id: 5, name: "Varsity Jacket",   price: 2499, cat: "Apparel",     badge: "Limited",    img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400" },
-  { id: 6, name: "Tote Bag",         price: 399,  cat: "Accessories", badge: "",           img: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=400" },
-  { id: 7, name: "Sticker Pack",     price: 149,  cat: "Stationery",  badge: "Popular",    img: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=400" },
-  { id: 8, name: "Campus Polo",      price: 899,  cat: "Apparel",     badge: "",           img: "https://images.unsplash.com/photo-1598032895397-b9472444bf93?w=400" },
+  { id: 1, name: "Campus Hoodie", price: 1499, cat: "Apparel", badge: "Bestseller", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400" },
+  { id: 2, name: "Dept T-Shirt", price: 799, cat: "Apparel", badge: "", img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400" },
+  { id: 3, name: "Campus Cap", price: 499, cat: "Accessories", badge: "New", img: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=400" },
+  { id: 4, name: "College Notebook", price: 299, cat: "Stationery", badge: "", img: "https://images.unsplash.com/photo-1585386959984-a41552231658?w=400" },
+  { id: 5, name: "Varsity Jacket", price: 2499, cat: "Apparel", badge: "Limited", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400" },
+  { id: 6, name: "Tote Bag", price: 399, cat: "Accessories", badge: "", img: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=400" },
+  { id: 7, name: "Sticker Pack", price: 149, cat: "Stationery", badge: "Popular", img: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=400" },
+  { id: 8, name: "Campus Polo", price: 899, cat: "Apparel", badge: "", img: "https://images.unsplash.com/photo-1598032895397-b9472444bf93?w=400" },
 ];
 
 // ── Toast Notification ─────────────────────────
@@ -139,7 +178,7 @@ function renderProducts(list) {
 function applyFilters() {
   const query = searchInput.value.toLowerCase().trim();
   const filtered = products.filter(p => {
-    const matchCat  = activeCategory === "all" || p.cat === activeCategory;
+    const matchCat = activeCategory === "all" || p.cat === activeCategory;
     const matchName = p.name.toLowerCase().includes(query);
     return matchCat && matchName;
   });
@@ -232,7 +271,7 @@ function updateCartUI() {
 }
 
 // ── Cart Sidebar Open / Close ──────────────────
-function openCart()  {
+function openCart() {
   cartSidebar.classList.add("open");
   cartOverlay.classList.add("open");
   document.body.style.overflow = "hidden";
@@ -314,3 +353,21 @@ document.getElementById("newsletterForm").addEventListener("submit", e => {
 // ── Init ───────────────────────────────────────
 renderProducts(products);
 updateCartUI();
+
+// ── Theme Toggle ──────────────────────────────
+const themeToggleBtn = document.getElementById("themeToggle");
+if (themeToggleBtn) {
+  const applyTheme = (isLight) => {
+    document.body.classList.toggle("light", isLight);
+    themeToggleBtn.textContent = isLight ? "☀️" : "🌙";
+  };
+
+  const savedTheme = localStorage.getItem("theme") || "dark";
+  applyTheme(savedTheme === "light");
+
+  themeToggleBtn.addEventListener("click", () => {
+    const isLight = !document.body.classList.contains("light");
+    applyTheme(isLight);
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+  });
+}

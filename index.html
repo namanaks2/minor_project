@@ -1,213 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Campus Merch Platform</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Campus Merch Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <script src="script.js" defer></script>
 
-  <!-- Toast Notification -->
-  <div id="toast" class="toast"></div>
+<body class="login-body">
+    <!-- Login -->
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
 
-  <!-- Cart Sidebar Overlay -->
-  <div id="cartOverlay" class="cart-overlay"></div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
 
-  <!-- Cart Sidebar -->
-  <aside id="cartSidebar" class="cart-sidebar">
-    <div class="cart-header">
-      <h3>Your Cart</h3>
-      <button id="closeCart" class="close-cart">&times;</button>
+            <button type="submit">Login</button>
+        </form>
+        <p id="message"></p>
     </div>
-    <div id="cartItems" class="cart-items"></div>
-    <div id="cartEmpty" class="cart-empty">
-      <span>🛒</span>
-      <p>Your cart is empty</p>
-    </div>
-    <div id="cartFooter" class="cart-footer">
-      <div class="cart-total">
-        Total: <span id="cartTotal">₹0</span>
-      </div>
-      <button class="btn-primary checkout-btn">Checkout →</button>
-    </div>
-  </aside>
-
-  <!-- Navbar -->
-  <header id="navbar" class="navbar">
-    <div class="logo">Campus<span>Merch</span></div>
-    <nav id="navLinks" class="nav-links">
-      <a href="#home"      class="nav-link active">Home</a>
-      <a href="#shop"      class="nav-link">Shop</a>
-      <a href="#customize" class="nav-link">Customize</a>
-      <a href="#clubs"     class="nav-link">Clubs</a>
-      <a href="#newsletter" class="nav-link">Newsletter</a>
-      <a href="#" id="cartToggle" class="nav-link cart-btn">
-        Cart <span id="cartCount">0</span>
-      </a>
-    </nav>
-    <div id="hamburger" class="hamburger">
-      <span></span><span></span><span></span>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section id="home" class="hero">
-    <div class="hero-bg-orb orb1"></div>
-    <div class="hero-bg-orb orb2"></div>
-    <div class="hero-content reveal">
-      <span class="hero-badge">🎓 New Collection 2026</span>
-      <h1>Wear Your<br>Campus Identity</h1>
-      <p>Premium merchandise crafted for bold students.</p>
-      <div class="hero-actions">
-        <button class="btn-primary" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
-          Explore Merch
-        </button>
-        <button class="btn-outline" onclick="document.getElementById('customize').scrollIntoView({behavior:'smooth'})">
-          Customize Yours
-        </button>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><strong>2,400+</strong><span>Students</span></div>
-        <div class="stat-divider"></div>
-        <div class="stat"><strong>50+</strong><span>Products</span></div>
-        <div class="stat-divider"></div>
-        <div class="stat"><strong>15+</strong><span>Clubs</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Shop -->
-  <section id="shop" class="products">
-    <h2 class="section-title reveal">Featured Products</h2>
-
-    <!-- Search & Filter -->
-    <div class="shop-controls reveal">
-      <div class="search-wrap">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search products…" />
-      </div>
-      <div class="filter-tabs">
-        <button class="filter-btn active" data-cat="all">All</button>
-        <button class="filter-btn" data-cat="Apparel">Apparel</button>
-        <button class="filter-btn" data-cat="Accessories">Accessories</button>
-        <button class="filter-btn" data-cat="Stationery">Stationery</button>
-      </div>
-    </div>
-
-    <div id="productGrid" class="product-grid"></div>
-    <p id="noResults" class="no-results hidden">No products found 😕</p>
-  </section>
-
-  <!-- Customize -->
-  <section id="customize" class="customize">
-    <h2 class="section-title reveal">Customize Your Merch</h2>
-    <div class="customize-container reveal">
-      <div class="custom-form">
-        <label>Your Name</label>
-        <input type="text" id="customName" placeholder="e.g. Arjun Sharma">
-
-        <label>Department</label>
-        <select id="customDept">
-          <option value="">Select Department</option>
-          <option value="CSE">CSE</option>
-          <option value="ECE">ECE</option>
-          <option value="MECH">MECH</option>
-          <option value="CIVIL">CIVIL</option>
-          <option value="MBA">MBA</option>
-        </select>
-
-        <label>Batch Year</label>
-        <select id="customYear">
-          <option value="">Select Year</option>
-          <option value="2025">2025</option>
-          <option value="2026">2026</option>
-          <option value="2027">2027</option>
-          <option value="2028">2028</option>
-        </select>
-
-        <label>Choose Color</label>
-        <div class="color-picker">
-          <button class="color-swatch active" data-color="#5b8cff" style="background:#5b8cff"></button>
-          <button class="color-swatch" data-color="#00f5a0" style="background:#00f5a0"></button>
-          <button class="color-swatch" data-color="#ff6b6b" style="background:#ff6b6b"></button>
-          <button class="color-swatch" data-color="#ffd166" style="background:#ffd166"></button>
-          <button class="color-swatch" data-color="#ffffff" style="background:#ffffff"></button>
-        </div>
-
-        <button id="previewBtn" class="btn-secondary">Preview Design</button>
-        <button id="addCustomToCart" class="btn-primary">Add Custom to Cart</button>
-      </div>
-
-      <div class="custom-preview">
-        <div class="preview-box" id="previewBox">
-          <div class="preview-tshirt">
-            <div class="preview-label" id="previewText">Your Name | Dept | Year</div>
-          </div>
-        </div>
-        <p class="preview-hint">Click "Preview Design" to see it live ↑</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Clubs -->
-  <section id="clubs" class="clubs">
-    <h2 class="section-title reveal">Trending Campus Clubs</h2>
-    <div class="club-grid reveal">
-      <div class="club-card" data-emoji="💻">
-        <div class="club-icon">💻</div>
-        <h3>Tech Club</h3>
-        <p>Hackathons, coding nights & more</p>
-        <span class="club-tag">342 members</span>
-      </div>
-      <div class="club-card" data-emoji="🎭">
-        <div class="club-icon">🎭</div>
-        <h3>Cultural Club</h3>
-        <p>Dance, drama & art showcases</p>
-        <span class="club-tag">215 members</span>
-      </div>
-      <div class="club-card" data-emoji="⚽">
-        <div class="club-icon">⚽</div>
-        <h3>Sports Club</h3>
-        <p>Tournaments & fitness events</p>
-        <span class="club-tag">189 members</span>
-      </div>
-      <div class="club-card" data-emoji="📸">
-        <div class="club-icon">📸</div>
-        <h3>Photography Club</h3>
-        <p>Shoots, exhibitions & reels</p>
-        <span class="club-tag">127 members</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Newsletter -->
-  <section id="newsletter" class="newsletter reveal">
-    <div class="newsletter-inner">
-      <span class="newsletter-badge">📬 Stay in the loop</span>
-      <h2>Get Drops Before Everyone Else</h2>
-      <p>Limited-edition merch, club exclusives & campus events — straight to your inbox.</p>
-      <form id="newsletterForm" class="newsletter-form">
-        <input type="email" id="newsletterEmail" placeholder="your@email.com" required />
-        <button type="submit" class="btn-primary">Subscribe</button>
-      </form>
-      <p id="newsletterMsg" class="newsletter-msg hidden"></p>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="logo footer-logo">Campus<span>Merch</span></div>
-      <div class="footer-links">
-        <a href="#home">Home</a>
-        <a href="#shop">Shop</a>
-        <a href="#customize">Customize</a>
-        <a href="#clubs">Clubs</a>
-      </div>
-    </div>
-    <p class="footer-copy">© 2026 Campus Merch Platform | Made for Students ❤️</p>
-  </footer>
+    <script src="script.js"></script>
 </body>
+
 </html>
