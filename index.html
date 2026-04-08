@@ -47,10 +47,10 @@
         <div class="form-group">
           <label for="loginEmail">Email Address</label>
           <div class="input-wrap">
-            <input type="email" id="loginEmail" placeholder="Rollno@krmu.edu.in" autocomplete="email" required>
+            <input type="email" id="loginEmail" placeholder="rollno@krmu.edu.in" autocomplete="email" required>
             <span class="input-icon">📧</span>
           </div>
-          <div class="error-text" id="emailError">⚠ Must be in format: rollno@college.edu.in or name@college.edu.in
+          <div class="error-text" id="emailError">⚠ Must end with @krmu.edu.in or @krmangalam.edu.in
           </div>
         </div>
 
@@ -93,7 +93,7 @@
       var reqUppercase = document.getElementById('reqUppercase');
       var reqSymbol = document.getElementById('reqSymbol');
 
-      var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.edu\.in$/;
+      var emailPattern = /^[a-zA-Z0-9._%+-]+@(krmu\.edu\.in|krmangalam\.edu\.in)$/;
 
       function validateEmail() {
         var val = emailInput.value.trim();
