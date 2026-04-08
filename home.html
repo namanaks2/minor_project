@@ -7,44 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <script>
-    const SUPABASE_URL = 'https://qvyhhcafjbxrzglajbxl.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_s7q818FAPmPZF7rpRyxu3A_ZHzNDN6c';
-
-    // Supabase REST API function
-    async function saveOrderToSupabase(orderData) {
-      const url = `${SUPABASE_URL}/rest/v1/orders`;
-
-      try {
-        console.log('📤 Sending order to Supabase...', orderData);
-
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_ANON_KEY,
-            'Prefer': 'return=representation'
-          },
-          body: JSON.stringify(orderData)
-        });
-
-        console.log('📥 Response status:', response.status);
-
-        if (!response.ok) {
-          const text = await response.text();
-          console.error('Response:', text);
-          throw new Error(`HTTP ${response.status}: ${text}`);
-        }
-
-        const result = await response.json();
-        console.log('✓ Order saved successfully', result);
-        return result;
-      } catch (error) {
-        console.error('❌ Supabase error:', error);
-        throw error;
-      }
-    }
-  </script>
 </head>
 
 
@@ -83,7 +45,7 @@
       <a href="#home" class="nav-link active">Home</a>
       <a href="#shop" class="nav-link">Shop</a>
       <a href="#customize" class="nav-link">Customize</a>
-      <!-- <a href="#clubs" class="nav-link">Clubs</a> -->
+      <a href="#clubs" class="nav-link">Clubs</a>
       <a href="#bulkorders" class="nav-link">Bulk Orders</a>
       <a href="#newsletter" class="nav-link">Newsletter</a>
       <a href="#" id="cartToggle" class="nav-link cart-btn">
@@ -111,10 +73,6 @@
             <span class="profile-item-icon">👤</span>
             <span>Profile</span>
           </a>
-          <a href="#" class="profile-dropdown-item" id="profileVendor">
-            <span class="profile-item-icon">🏪</span>
-            <span>Log in as Vendor</span>
-          </a>
           <a href="#" class="profile-dropdown-item" id="profileChangeId">
             <span class="profile-item-icon">🔄</span>
             <span>Change ID</span>
@@ -137,7 +95,7 @@
     <div class="hero-bg-orb orb1"></div>
     <div class="hero-bg-orb orb2"></div>
     <div class="hero-content reveal">
-      <!-- <span class="hero-badge">🎓 New Collection 2026</span> -->
+      <span class="hero-badge">🎓 New Collection 2026</span>
       <h1>Wear Your<br>Campus Identity</h1>
       <p>Premium merchandise crafted for bold students.</p>
       <div class="hero-actions">
@@ -271,7 +229,7 @@
   </section>
 
   <!-- Clubs -->
-  <!-- <section id="clubs" class="clubs">
+  <section id="clubs" class="clubs">
     <h2 class="section-title reveal">Trending Campus Clubs</h2>
     <div class="club-grid reveal">
       <div class="club-card" data-emoji="💻">
@@ -299,7 +257,7 @@
         <span class="club-tag">127 members</span>
       </div>
     </div>
-  </section> -->
+  </section>
 
   <!-- Bulk Orders -->
   <section id="bulkorders" class="bulk-orders">
@@ -389,7 +347,7 @@
   <!-- Newsletter -->
   <section id="newsletter" class="newsletter reveal">
     <div class="newsletter-inner">
-      <!-- <span class="newsletter-badge">📬 Stay in the loop</ span> -->
+      <span class="newsletter-badge">📬 Stay in the loop</span>
       <h2>Get Drops Before Everyone Else</h2>
       <p>Limited-edition merch, club exclusives & campus events — straight to your inbox.</p>
       <form id="newsletterForm" class="newsletter-form">
