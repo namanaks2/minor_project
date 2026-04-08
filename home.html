@@ -120,22 +120,13 @@
   <section id="shop" class="products">
     <h2 class="section-title reveal">Featured Products</h2>
 
-    <!-- Search & Filter -->
-    <div class="shop-controls reveal">
-      <div class="search-wrap">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search products…" />
+    <div class="featured-scroll-wrapper reveal">
+      <button class="scroll-arrow scroll-arrow-left" id="scrollLeft" aria-label="Scroll left">‹</button>
+      <div id="featuredScroll" class="featured-scroll">
+        <!-- Products will be injected here by JS -->
       </div>
-      <div class="filter-tabs">
-        <button class="filter-btn active" data-cat="all">All</button>
-        <button class="filter-btn" data-cat="Apparel">Apparel</button>
-        <button class="filter-btn" data-cat="Accessories">Accessories</button>
-        <button class="filter-btn" data-cat="Stationery">Stationery</button>
-      </div>
+      <button class="scroll-arrow scroll-arrow-right" id="scrollRight" aria-label="Scroll right">›</button>
     </div>
-
-    <div id="productGrid" class="product-grid"></div>
-    <p id="noResults" class="no-results hidden">No products found 😕</p>
   </section>
 
   <!-- Customize -->
@@ -382,5 +373,624 @@
     </div>
     <p class="footer-copy">© 2026 Campus Merch Platform</p>
   </footer>
+
+  <!-- ═══════════════════════════════════════════
+       AI ASSISTANT CHAT WIDGET
+       ═══════════════════════════════════════════ -->
+  <div id="aiChatWidget">
+    <!-- Floating Action Button -->
+    <button id="aiFab" class="ai-fab" aria-label="Open AI Assistant">
+      <span class="ai-fab-icon" id="aiFabIcon">🤖</span>
+      <span class="ai-fab-pulse"></span>
+    </button>
+
+    <!-- Chat Window -->
+    <div id="aiChatWindow" class="ai-chat-window">
+      <div class="ai-chat-header">
+        <div class="ai-chat-header-info">
+          <div class="ai-chat-avatar">🤖</div>
+          <div>
+            <h4>MerchBot</h4>
+            <span class="ai-chat-status">● Online</span>
+          </div>
+        </div>
+        <button id="aiChatClose" class="ai-chat-close">&times;</button>
+      </div>
+
+      <div id="aiChatBody" class="ai-chat-body">
+        <!-- Messages injected here by JS -->
+      </div>
+
+      <div id="aiChatOptions" class="ai-chat-options">
+        <!-- Quick-action buttons injected here by JS -->
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* ── AI Chat FAB ─────────────────────────── */
+    .ai-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 8000;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      font-size: 1.6rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 28px rgba(91,140,255,0.45);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .ai-fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 36px rgba(91,140,255,0.55);
+    }
+    .ai-fab.open .ai-fab-icon {
+      display: none;
+    }
+    .ai-fab-icon {
+      line-height: 1;
+    }
+    .ai-fab-pulse {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid var(--secondary);
+      animation: aiFabPulse 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .ai-fab.open .ai-fab-pulse { display: none; }
+    @keyframes aiFabPulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.25); opacity: 0; }
+    }
+
+    /* ── Chat Window ─────────────────────────── */
+    .ai-chat-window {
+      position: fixed;
+      bottom: 100px;
+      right: 28px;
+      z-index: 8001;
+      width: 380px;
+      max-width: calc(100vw - 32px);
+      max-height: 520px;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.95);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(.22,1,.36,1), visibility 0.35s ease;
+    }
+    .ai-chat-window.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    [data-theme="light"] .ai-chat-window {
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
+    }
+
+    /* Header */
+    .ai-chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, rgba(91,140,255,0.15), rgba(0,245,160,0.1));
+      border-bottom: 1px solid var(--card-border);
+    }
+    .ai-chat-header-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .ai-chat-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .ai-chat-header h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 1px;
+    }
+    .ai-chat-status {
+      font-size: 0.72rem;
+      color: var(--secondary);
+      font-weight: 600;
+    }
+    .ai-chat-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.6rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+    .ai-chat-close:hover { color: var(--text); }
+
+    /* Body (messages) */
+    .ai-chat-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 200px;
+      max-height: 300px;
+    }
+    .ai-chat-body::-webkit-scrollbar { width: 4px; }
+    .ai-chat-body::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    /* Message bubbles */
+    .ai-msg {
+      max-width: 85%;
+      padding: 10px 16px;
+      border-radius: 16px;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      animation: aiMsgIn 0.35s ease;
+    }
+    @keyframes aiMsgIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .ai-msg-bot {
+      align-self: flex-start;
+      background: rgba(91,140,255,0.1);
+      border: 1px solid rgba(91,140,255,0.15);
+      color: var(--text);
+      border-bottom-left-radius: 4px;
+    }
+    .ai-msg-user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, var(--primary), #4a7aef);
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+    .ai-msg-bot a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .ai-msg-bot a:hover { text-decoration: underline; }
+
+    /* Typing indicator */
+    .ai-typing {
+      display: flex;
+      gap: 4px;
+      padding: 12px 18px;
+      align-self: flex-start;
+      background: rgba(91,140,255,0.1);
+      border: 1px solid rgba(91,140,255,0.15);
+      border-radius: 16px;
+      border-bottom-left-radius: 4px;
+    }
+    .ai-typing-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--muted);
+      border-radius: 50%;
+      animation: aiTypingBounce 1.4s ease-in-out infinite;
+    }
+    .ai-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .ai-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes aiTypingBounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-6px); }
+    }
+
+    /* Options panel */
+    .ai-chat-options {
+      padding: 12px 16px;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+    .ai-opt-btn {
+      padding: 8px 16px;
+      border-radius: 50px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-align: left;
+      line-height: 1.4;
+    }
+    .ai-opt-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      transform: translateY(-1px);
+    }
+    .ai-opt-btn.ai-opt-action {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+    }
+    .ai-opt-btn.ai-opt-action:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    .ai-opt-btn.ai-opt-back {
+      background: transparent;
+      border-style: dashed;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+    .ai-opt-btn.ai-opt-back:hover {
+      background: rgba(91,140,255,0.08);
+      color: var(--text);
+      border-color: var(--primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .ai-chat-window {
+        right: 8px;
+        bottom: 90px;
+        width: calc(100vw - 16px);
+        max-height: 460px;
+      }
+      .ai-fab {
+        bottom: 18px;
+        right: 18px;
+        width: 52px;
+        height: 52px;
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+
+  <script>
+  (function() {
+    /* ═══════════════════════════════════════════
+       AI ASSISTANT — Chat Logic
+       ═══════════════════════════════════════════ */
+
+    const fab = document.getElementById('aiFab');
+    const chatWindow = document.getElementById('aiChatWindow');
+    const chatBody = document.getElementById('aiChatBody');
+    const chatOptions = document.getElementById('aiChatOptions');
+    const closeBtn = document.getElementById('aiChatClose');
+    let isOpen = false;
+
+    // ── Toggle Chat ──────────────────────────────
+    fab.addEventListener('click', () => {
+      isOpen = !isOpen;
+      chatWindow.classList.toggle('open', isOpen);
+      fab.classList.toggle('open', isOpen);
+      if (isOpen && chatBody.children.length === 0) {
+        showWelcome();
+      }
+    });
+    closeBtn.addEventListener('click', () => {
+      isOpen = false;
+      chatWindow.classList.remove('open');
+      fab.classList.remove('open');
+    });
+
+    // ── Helpers ──────────────────────────────────
+    function addBotMsg(html) {
+      const div = document.createElement('div');
+      div.classList.add('ai-msg', 'ai-msg-bot');
+      div.innerHTML = html;
+      chatBody.appendChild(div);
+      scrollChat();
+    }
+
+    function addUserMsg(text) {
+      const div = document.createElement('div');
+      div.classList.add('ai-msg', 'ai-msg-user');
+      div.textContent = text;
+      chatBody.appendChild(div);
+      scrollChat();
+    }
+
+    function showTyping() {
+      const div = document.createElement('div');
+      div.classList.add('ai-typing');
+      div.id = 'aiTyping';
+      div.innerHTML = '<span class="ai-typing-dot"></span><span class="ai-typing-dot"></span><span class="ai-typing-dot"></span>';
+      chatBody.appendChild(div);
+      scrollChat();
+    }
+
+    function removeTyping() {
+      const el = document.getElementById('aiTyping');
+      if (el) el.remove();
+    }
+
+    function scrollChat() {
+      requestAnimationFrame(() => {
+        chatBody.scrollTop = chatBody.scrollHeight;
+      });
+    }
+
+    function setOptions(options) {
+      chatOptions.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.classList.add('ai-opt-btn');
+        if (opt.cls) btn.classList.add(opt.cls);
+        btn.textContent = opt.label;
+        btn.addEventListener('click', () => {
+          addUserMsg(opt.label);
+          opt.action();
+        });
+        chatOptions.appendChild(btn);
+      });
+    }
+
+    function typeBot(html, options, delay) {
+      showTyping();
+      setTimeout(() => {
+        removeTyping();
+        addBotMsg(html);
+        if (options) setOptions(options);
+      }, delay || 800);
+    }
+
+    // ── Menu Builders ────────────────────────────
+    const mainMenuOptions = [
+      { label: '📦 Bulk Order Inquiry',         action: flowBulkOrder },
+      { label: '💰 Pricing Information',         action: flowPricing },
+      { label: '🎨 Custom Merch Design',         action: flowCustomMerch },
+      { label: '🏫 Club-Specific Orders',        action: flowClubOrders },
+      { label: '🪪 ID Straps & Duty Badges',     action: flowIdStraps },
+      { label: '📧 Contact Support',             action: flowContact },
+    ];
+
+    function goBackOption() {
+      return { label: '← Back to menu', cls: 'ai-opt-back', action: showMainMenu };
+    }
+
+    // ── Welcome ─────────────────────────────────
+    function showWelcome() {
+      addBotMsg("Hey there! 👋 I'm <strong>MerchBot</strong>, your campus merch assistant.");
+      typeBot(
+        "I can help you with <strong>bulk orders</strong>, <strong>pricing</strong>, <strong>custom designs</strong>, and more. What can I help you with?",
+        mainMenuOptions,
+        600
+      );
+    }
+
+    function showMainMenu() {
+      typeBot("Sure! What else can I help you with? 😊", mainMenuOptions, 500);
+    }
+
+    // ── Flow: Bulk Order Inquiry ────────────────
+    function flowBulkOrder() {
+      typeBot(
+        "Great choice! 📦 For <strong>bulk orders</strong>, we offer special pricing on orders of <strong>20+ items</strong>. Here's what you can order in bulk:",
+        null, 700
+      );
+      setTimeout(() => {
+        typeBot(
+          "• <strong>T-Shirts & Hoodies</strong> — from ₹249/pc<br>• <strong>Caps & Accessories</strong> — from ₹149/pc<br>• <strong>ID Straps & Badges</strong> — from ₹89/pc<br>• <strong>Tote Bags & Stationery</strong> — from ₹69/pc",
+          null, 600
+        );
+        setTimeout(() => {
+          typeBot(
+            "What's the <strong>quantity range</strong> you're looking at?",
+            [
+              { label: '20–50 pieces', action: () => bulkQty('20–50') },
+              { label: '50–100 pieces', action: () => bulkQty('50–100') },
+              { label: '100+ pieces', action: () => bulkQty('100+') },
+              goBackOption()
+            ], 500
+          );
+        }, 1400);
+      }, 1500);
+    }
+
+    function bulkQty(range) {
+      const discounts = {
+        '20–50': '10%', '50–100': '18%', '100+': '25%'
+      };
+      typeBot(
+        `For <strong>${range} pieces</strong>, you'll get approximately <strong>${discounts[range]} discount</strong> on the listed price! 🎉`,
+        null, 600
+      );
+      setTimeout(() => {
+        typeBot(
+          "Would you like to place this order? I'll connect you with our team via email with all the details pre-filled.",
+          [
+            { label: '✉️ Send Enquiry Email', cls: 'ai-opt-action', action: () => {
+              window.open('mailto:namanaks2@gmail.com?subject=Bulk%20Order%20Enquiry%20(' + range + '%20pieces)&body=Hi%20Campus%20Merch%20Team%2C%0A%0AI%27d%20like%20to%20place%20a%20bulk%20order.%0A%0AQuantity%20Range%3A%20' + encodeURIComponent(range) + '%0AItems%20Needed%3A%0AClub%2FEvent%3A%0ADeadline%3A%0A%0AThank%20you!', '_blank');
+              typeBot("📧 Opening your email client now! Our team usually responds within <strong>24 hours</strong>. Is there anything else?", mainMenuOptions, 600);
+            }},
+            goBackOption()
+          ], 500
+        );
+      }, 1400);
+    }
+
+    // ── Flow: Pricing Information ───────────────
+    function flowPricing() {
+      typeBot(
+        "Here's our <strong>pricing overview</strong> 💰:",
+        null, 600
+      );
+      setTimeout(() => {
+        typeBot(
+          "🧥 <strong>Hoodies</strong> — ₹999<br>" +
+          "👕 <strong>T-Shirts</strong> — ₹299<br>" +
+          "🧢 <strong>Caps</strong> — ₹199<br>" +
+          "📓 <strong>Notebooks</strong> — ₹99<br>" +
+          "👜 <strong>Tote Bags</strong> — ₹249<br>" +
+          "🏷️ <strong>Sticker Packs</strong> — ₹89<br>" +
+          "🪪 <strong>ID Straps</strong> — ₹159<br>" +
+          "📛 <strong>Duty Badges</strong> — ₹199",
+          null, 500
+        );
+        setTimeout(() => {
+          typeBot(
+            "💡 <strong>Tip:</strong> Bulk orders of 20+ items get <strong>10–25% off</strong> automatically! Want to explore bulk pricing?",
+            [
+              { label: '📦 Yes, bulk pricing', action: flowBulkOrder },
+              { label: '🛒 Browse products', action: () => {
+                document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+                typeBot("Scrolled to the products section! 👆 You can add items to cart from there. Need anything else?", mainMenuOptions, 400);
+              }},
+              goBackOption()
+            ], 500
+          );
+        }, 1200);
+      }, 1400);
+    }
+
+    // ── Flow: Custom Merch Design ──────────────
+    function flowCustomMerch() {
+      typeBot(
+        "🎨 Our <strong>Custom Merch</strong> service lets you create personalized items for your club, event, or batch! Here's what you can customize:",
+        null, 700
+      );
+      setTimeout(() => {
+        typeBot(
+          "• <strong>Merch type</strong> — T-Shirts, Hoodies, Caps, ID Straps, Badges<br>" +
+          "• <strong>Colors</strong> — 8 base colors + 6 text colors<br>" +
+          "• <strong>Text</strong> — Name, Department, Batch Year<br>" +
+          "• <strong>Quantity</strong> — 1 to 100+ pieces",
+          [
+            { label: '🎨 Go to Customizer', cls: 'ai-opt-action', action: () => {
+              document.getElementById('customize').scrollIntoView({ behavior: 'smooth' });
+              typeBot("Scrolled to the Customizer section! 👆 You can design your merch right there. Anything else?", mainMenuOptions, 400);
+            }},
+            { label: '✉️ Send design requirements', action: () => {
+              window.open('mailto:namanaks2@gmail.com?subject=Custom%20Merch%20Design%20Request&body=Hi%20Campus%20Merch%20Team%2C%0A%0AI%27d%20like%20to%20discuss%20a%20custom%20merch%20design.%0A%0AMerch%20Type%3A%0ADesign%20Idea%3A%0AColors%3A%0AQuantity%3A%0ADeadline%3A%0A%0AThank%20you!', '_blank');
+              typeBot("📧 Opening your email client! Attach any design references you have. Anything else?", mainMenuOptions, 600);
+            }},
+            goBackOption()
+          ], 500
+        );
+      }, 1500);
+    }
+
+    // ── Flow: Club-Specific Orders ─────────────
+    function flowClubOrders() {
+      typeBot(
+        "🏫 We work with <strong>multiple campus clubs</strong>! Which club are you ordering for?",
+        [
+          { label: '⚽ Sports Club',        action: () => clubDetail('Sports Club', 'Jerseys, Track Wear, Sports Tees') },
+          { label: '🔬 Tech Nexus Club',    action: () => clubDetail('Tech Nexus Club', 'Formula Tees, Science Humor, Club Hoodies') },
+          { label: '🎨 Roopantr Club',      action: () => clubDetail('Roopantr Club', 'Event Uniforms, Custom Outfits, Club Apparel') },
+          { label: '🎭 Cultural Club',      action: () => clubDetail('Cultural Club', 'Performance Tees, Stage Outfits, Team Merch') },
+          { label: '🏛️ MUN Club',           action: () => clubDetail('MUN Club', 'MUN Badges, Anchor Tees, Delegate Kits') },
+          { label: '🔎 Other / Not listed', action: flowOtherClub },
+          goBackOption()
+        ], 700
+      );
+    }
+
+    function clubDetail(club, items) {
+      typeBot(
+        `Great! For <strong>${club}</strong>, we offer:<br><br>📋 <strong>Popular items:</strong> ${items}<br>📦 <strong>Min order:</strong> 20 pieces for bulk pricing<br>⏱️ <strong>Turnaround:</strong> 5–7 working days`,
+        [
+          { label: '✉️ Send Bulk Enquiry', cls: 'ai-opt-action', action: () => {
+            window.open('mailto:namanaks2@gmail.com?subject=Bulk%20Order%20%E2%80%94%20' + encodeURIComponent(club) + '&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe%27d%20like%20to%20place%20a%20bulk%20order%20for%20' + encodeURIComponent(club) + '.%0A%0AItems%20Needed%3A%0AQuantity%3A%0AEvent%2FOccasion%3A%0AAdditional%20Details%3A%0A%0AThank%20you!', '_blank');
+            typeBot("📧 Email template opened for " + club + "! Anything else?", mainMenuOptions, 600);
+          }},
+          { label: '🏫 Check other clubs', action: flowClubOrders },
+          goBackOption()
+        ], 700
+      );
+    }
+
+    function flowOtherClub() {
+      typeBot(
+        "No worries! We can create merch for <strong>any club or society</strong>. Browse our full clubs directory or reach out directly:",
+        [
+          { label: '📋 View All Clubs', cls: 'ai-opt-action', action: () => {
+            window.location.href = 'clubs.html';
+          }},
+          { label: '✉️ Email Us', action: () => {
+            window.open('mailto:namanaks2@gmail.com?subject=Club%20Merch%20Inquiry&body=Hi%20Campus%20Merch%20Team%2C%0A%0AOur%20club%20is%20interested%20in%20ordering%20custom%20merch.%0A%0AClub%20Name%3A%0AItems%20Needed%3A%0AQuantity%3A%0A%0AThank%20you!', '_blank');
+            typeBot("📧 Email client opened! Anything else I can help with?", mainMenuOptions, 600);
+          }},
+          goBackOption()
+        ], 600
+      );
+    }
+
+    // ── Flow: ID Straps & Badges ───────────────
+    function flowIdStraps() {
+      typeBot(
+        "🪪 We offer <strong>custom ID straps & duty badges</strong> for events! Perfect for:",
+        null, 600
+      );
+      setTimeout(() => {
+        typeBot(
+          "• <strong>Volunteers</strong> — colored straps + name badges<br>" +
+          "• <strong>Core Team</strong> — premium lanyards<br>" +
+          "• <strong>Convenors & Coordinators</strong> — special role badges<br>" +
+          "• <strong>Participants</strong> — event-branded straps<br><br>" +
+          "💰 Starting at just <strong>₹89/piece</strong> for bulk orders!",
+          [
+            { label: '✉️ Order Custom Badges', cls: 'ai-opt-action', action: () => {
+              window.open('mailto:namanaks2@gmail.com?subject=Bulk%20Order%20%E2%80%94%20Custom%20ID%20Straps%20%26%20Badges&body=Hi%20Campus%20Merch%20Team%2C%0A%0AWe%27d%20like%20to%20order%20custom%20ID%20straps%20and%2For%20duty%20badges.%0A%0AEvent%20Name%3A%0ARoles%20Needed%3A%20(Volunteer%2C%20Core%20Team%2C%20Convenor%2C%20Coordinator%2C%20Participant)%0AQuantity%20per%20Role%3A%0AAdditional%20Details%3A%0A%0AThank%20you!', '_blank');
+              typeBot("📧 Opening email with badge order template! Our team will get back to you within 24 hours. Anything else?", mainMenuOptions, 600);
+            }},
+            { label: '🛒 View in shop', action: () => {
+              document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+              typeBot("Scrolled to products! You can see ID Straps & Duty Badges there. 👆 Need anything else?", mainMenuOptions, 400);
+            }},
+            goBackOption()
+          ], 500
+        );
+      }, 1400);
+    }
+
+    // ── Flow: Contact Support ──────────────────
+    function flowContact() {
+      typeBot(
+        "📧 You can reach our team anytime! Here are the ways to get in touch:",
+        null, 600
+      );
+      setTimeout(() => {
+        typeBot(
+          "📩 <strong>Email:</strong> <a href=\"mailto:namanaks2@gmail.com\">namanaks2@gmail.com</a><br><br>" +
+          "We typically respond within <strong>24 hours</strong>. For urgent inquiries, mention <strong>URGENT</strong> in the subject line!",
+          [
+            { label: '✉️ Send Email Now', cls: 'ai-opt-action', action: () => {
+              window.open('mailto:namanaks2@gmail.com?subject=General%20Inquiry%20%E2%80%94%20Campus%20Merch&body=Hi%20Campus%20Merch%20Team%2C%0A%0AI%20have%20a%20question%20about%3A%0A%0AThank%20you!', '_blank');
+              typeBot("📧 Email client opened! Anything else?", mainMenuOptions, 600);
+            }},
+            goBackOption()
+          ], 500
+        );
+      }, 1400);
+    }
+
+  })();
+  </script>
 </body>
 </html>

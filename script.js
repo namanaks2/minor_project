@@ -7,7 +7,6 @@ const navbar         = document.getElementById("navbar");
 const navLinks       = document.getElementById("navLinks");
 const hamburger      = document.getElementById("hamburger");
 const cartCountEl    = document.getElementById("cartCount");
-const productGrid    = document.getElementById("productGrid");
 const toast          = document.getElementById("toast");
 const cartSidebar    = document.getElementById("cartSidebar");
 const cartOverlay    = document.getElementById("cartOverlay");
@@ -17,8 +16,7 @@ const cartItemsEl    = document.getElementById("cartItems");
 const cartEmptyEl    = document.getElementById("cartEmpty");
 const cartFooterEl   = document.getElementById("cartFooter");
 const cartTotalEl    = document.getElementById("cartTotal");
-const searchInput    = document.getElementById("searchInput");
-const noResults      = document.getElementById("noResults");
+const featuredScroll = document.getElementById("featuredScroll");
 
 
 let cart = [];                    
@@ -93,14 +91,14 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
 
-// ── Render Products ────────────────────────────
-function renderProducts(list) {
-  productGrid.innerHTML = "";
-  noResults.classList.toggle("hidden", list.length > 0);
+// ── Render Featured Products (Horizontal Scroll) ──
+function renderFeaturedProducts() {
+  if (!featuredScroll) return;
+  featuredScroll.innerHTML = "";
 
-  list.forEach((product, i) => {
+  products.forEach((product, i) => {
     const card = document.createElement("div");
-    card.classList.add("product-card");
+    card.classList.add("featured-card");
     card.style.animationDelay = `${i * 80}ms`;
 
     card.innerHTML = `
@@ -129,37 +127,44 @@ function renderProducts(list) {
         : `Removed from wishlist`);
     });
 
-    productGrid.appendChild(card);
+    featuredScroll.appendChild(card);
   });
+
+  // Add the "Search for more" card at the end
+  const moreCard = document.createElement("a");
+  moreCard.href = "products.html";
+  moreCard.classList.add("featured-card", "featured-card-more");
+  moreCard.innerHTML = `
+    <div class="more-card-icon">🔍</div>
+    <h3>Search for More</h3>
+    <p class="more-card-desc">Browse our full collection with filters & search</p>
+    <span class="btn-outline more-card-btn">View All Products →</span>
+  `;
+  featuredScroll.appendChild(moreCard);
 }
 
-// ── Filter & Search Logic ──────────────────────
-function applyFilters() {
-  const query = searchInput.value.toLowerCase().trim();
-  const filtered = products.filter(p => {
-    const matchCat  = activeCategory === "all" || p.cat === activeCategory;
-    const matchName = p.name.toLowerCase().includes(query);
-    return matchCat && matchName;
+// ── Scroll Arrow Buttons ──────────────────────
+const scrollLeftBtn = document.getElementById("scrollLeft");
+const scrollRightBtn = document.getElementById("scrollRight");
+
+if (scrollLeftBtn && scrollRightBtn && featuredScroll) {
+  scrollLeftBtn.addEventListener("click", () => {
+    featuredScroll.scrollBy({ left: -320, behavior: "smooth" });
   });
-  renderProducts(filtered);
+  scrollRightBtn.addEventListener("click", () => {
+    featuredScroll.scrollBy({ left: 320, behavior: "smooth" });
+  });
+
+  // Show/hide arrows based on scroll position
+  function updateScrollArrows() {
+    const { scrollLeft, scrollWidth, clientWidth } = featuredScroll;
+    scrollLeftBtn.classList.toggle("hidden-arrow", scrollLeft <= 10);
+    scrollRightBtn.classList.toggle("hidden-arrow", scrollLeft + clientWidth >= scrollWidth - 10);
+  }
+  featuredScroll.addEventListener("scroll", updateScrollArrows);
+  // Initial check after render
+  setTimeout(updateScrollArrows, 100);
 }
-
-// Filter buttons
-document.querySelectorAll(".filter-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    activeCategory = btn.dataset.cat;
-    applyFilters();
-  });
-});
-
-// Search input (debounced)
-let searchTimer;
-searchInput.addEventListener("input", () => {
-  clearTimeout(searchTimer);
-  searchTimer = setTimeout(applyFilters, 250);
-});
 
 // ── Cart Helpers ───────────────────────────────
 function addToCart(product) {
@@ -453,6 +458,5 @@ if (profileTrigger && profileDropdown) {
 }
 
 // ── Init ───────────────────────────────────────
-renderProducts(products);
+renderFeaturedProducts();
 updateCartUI();
-
