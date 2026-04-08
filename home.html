@@ -7,16 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-<<<<<<< HEAD
-</head>
-
-=======
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
-
->>>>>>> namann
 <body>
   <script src="script.js" defer></script>
 
@@ -28,73 +21,31 @@
 
   <!-- Cart Sidebar -->
   <aside id="cartSidebar" class="cart-sidebar">
-<<<<<<< HEAD
-
-=======
->>>>>>> namann
     <div class="cart-header">
       <h3>Your Cart</h3>
       <button id="closeCart" class="close-cart">&times;</button>
     </div>
-<<<<<<< HEAD
-
-    <div id="cartItems" class="cart-items"> </div>
-
-=======
     <div id="cartItems" class="cart-items"></div>
->>>>>>> namann
     <div id="cartEmpty" class="cart-empty">
       <span>🛒</span>
       <p>Your cart is empty</p>
     </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> namann
     <div id="cartFooter" class="cart-footer">
       <div class="cart-total">
         Total: <span id="cartTotal">₹0</span>
       </div>
-<<<<<<< HEAD
-      <button class="btn-primary checkout-btn">Checkout</button>
-    </div>
-
-=======
       <button class="btn-primary checkout-btn">Checkout →</button>
     </div>
->>>>>>> namann
   </aside>
 
   <!-- Navbar -->
   <header id="navbar" class="navbar">
-<<<<<<< HEAD
-
-    <div class="logo">
-      Campus<span>Merch</span>
-    </div>
-
-=======
     <div class="logo"><img src="logo_campusmerch.png" alt="CampusMerch" class="logo-img"></div>
->>>>>>> namann
     <nav id="navLinks" class="nav-links">
       <a href="#home" class="nav-link active">Home</a>
       <a href="#shop" class="nav-link">Shop</a>
       <a href="#customize" class="nav-link">Customize</a>
       <a href="#clubs" class="nav-link">Clubs</a>
-<<<<<<< HEAD
-      <a href="#newsletter" class="nav-link">Newsletter</a>
-      <a href="#" id="cartToggle" class="nav-link cart-btn"> Cart <span id="cartCount">0</span></a>
-      <button id="logout-btn" onclick="logout()">Logout</button>
-      <button id="themeToggle" class="theme-toggle" title="Toggle theme">🌙/☀️</button>
-
-    </nav>
-
-
-    <div id="hamburger" class="hamburger">
-      <span></span><span></span><span></span>
-    </div>
-
-=======
       <a href="#bulkorders" class="nav-link">Bulk Orders</a>
       <a href="#newsletter" class="nav-link">Newsletter</a>
       <a href="#" id="cartToggle" class="nav-link cart-btn">
@@ -137,7 +88,6 @@
     <div id="hamburger" class="hamburger">
       <span></span><span></span><span></span>
     </div>
->>>>>>> namann
   </header>
 
   <!-- Hero -->
@@ -170,24 +120,6 @@
   <section id="shop" class="products">
     <h2 class="section-title reveal">Featured Products</h2>
 
-<<<<<<< HEAD
-    <!-- Search & Filter -->
-    <div class="shop-controls reveal">
-      <div class="search-wrap">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search products…" />
-      </div>
-      <div class="filter-tabs">
-        <button class="filter-btn active" data-cat="all">All</button>
-        <button class="filter-btn" data-cat="Apparel">Apparel</button>
-        <button class="filter-btn" data-cat="Accessories">Accessories</button>
-        <button class="filter-btn" data-cat="Stationery">Stationery</button>
-      </div>
-    </div>
-
-    <div id="productGrid" class="product-grid"></div>
-    <p id="noResults" class="no-results hidden">No products found 😕</p>
-=======
     <div class="featured-scroll-wrapper reveal">
       <button class="scroll-arrow scroll-arrow-left" id="scrollLeft" aria-label="Scroll left">‹</button>
       <div id="featuredScroll" class="featured-scroll">
@@ -195,16 +127,10 @@
       </div>
       <button class="scroll-arrow scroll-arrow-right" id="scrollRight" aria-label="Scroll right">›</button>
     </div>
->>>>>>> namann
   </section>
 
   <!-- Customize -->
   <section id="customize" class="customize">
-<<<<<<< HEAD
-    <h2 class="section-title reveal">Customize Your Merch</h2>
-    <div class="customize-container reveal">
-      <div class="custom-form">
-=======
     <h2 class="section-title reveal">Customize Your Merch for College Events</h2>
     <div class="customize-container reveal">
       <div class="custom-form">
@@ -218,20 +144,11 @@
           <option value="Cap">Cap</option>
         </select>
 
->>>>>>> namann
         <label>Your Name</label>
         <input type="text" id="customName" placeholder="e.g. Arjun Sharma">
 
         <label>Department</label>
         <select id="customDept">
-<<<<<<< HEAD
-          <option value="">Select Department</option>
-          <option value="CSE">CSE</option>
-          <option value="ECE">ECE</option>
-          <option value="MECH">MECH</option>
-          <option value="CIVIL">CIVIL</option>
-          <option value="MBA">MBA</option>
-=======
           <option value="">Select Discipline</option>
           <option value="SOET">SOET</option>
           <option value="SOMC">SOMC</option>
@@ -243,45 +160,17 @@
           <option value="SPRS">SPRS</option>
           <option value="SOAD">SOAD</option>
           <option value="Zenith">Zenith</option>
->>>>>>> namann
         </select>
 
         <label>Batch Year</label>
         <select id="customYear">
-<<<<<<< HEAD
-          <option value="">Select Year</option>
-=======
           <option value="">Select Batch</option>
->>>>>>> namann
           <option value="2025">2025</option>
           <option value="2026">2026</option>
           <option value="2027">2027</option>
           <option value="2028">2028</option>
         </select>
 
-<<<<<<< HEAD
-        <label>Choose Color</label>
-        <div class="color-picker">
-          <button class="color-swatch active" data-color="#5b8cff" style="background:#5b8cff"></button>
-          <button class="color-swatch" data-color="#00f5a0" style="background:#00f5a0"></button>
-          <button class="color-swatch" data-color="#ff6b6b" style="background:#ff6b6b"></button>
-          <button class="color-swatch" data-color="#ffd166" style="background:#ffd166"></button>
-          <button class="color-swatch" data-color="#ffffff" style="background:#ffffff"></button>
-        </div>
-
-        <button id="previewBtn" class="btn-secondary">Preview Design</button>
-        <button id="addCustomToCart" class="btn-primary">Add Custom to Cart</button>
-      </div>
-
-      <div class="custom-preview">
-        <div class="preview-box" id="previewBox">
-          <div class="preview-tshirt">
-            <div class="preview-label" id="previewText">Your Name | Dept | Year</div>
-          </div>
-        </div>
-        <p class="preview-hint">Click "Preview Design" to see it live ↑</p>
-      </div>
-=======
         <label>Merch Color</label>
         <div class="color-picker shirt-color-picker">
           <button class="shirt-swatch active" data-shirt="#1a2a5e" style="background:#1a2a5e" title="Navy Blue"></button>
@@ -304,14 +193,6 @@
           <button class="color-swatch" data-color="#0d0d0d" style="background:#0d0d0d"></button>
         </div>
 
-        <!-- <label>Text Placement</label>
-        <div class="placement-options">
-          <button class="placement-btn active" data-placement="front-center">Front Center</button>
-          <button class="placement-btn" data-placement="front-top">Front Top</button>
-          <button class="placement-btn" data-placement="front-bottom">Front Bottom</button>
-          <button class="placement-btn" data-placement="back-center">Back Center</button>
-        </div> -->
-
         <label>Quantity</label>
         <div class="qty-selector">
           <button type="button" class="qty-ctrl minus" id="customQtyMinus">−</button>
@@ -325,9 +206,6 @@
 
         <button id="personalReqBtn" class="btn-outline req-btn">✉️ Write / Send Your Personal Requirements</button>
       </div>
-
-
->>>>>>> namann
     </div>
   </section>
 
@@ -362,8 +240,6 @@
     </div>
   </section>
 
-<<<<<<< HEAD
-=======
   <!-- Bulk Orders -->
   <section id="bulkorders" class="bulk-orders">
     <h2 class="section-title reveal">Bulk Orders for Clubs & Societies</h2>
@@ -449,7 +325,6 @@
     </div>
   </section>
 
->>>>>>> namann
   <!-- Newsletter -->
   <section id="newsletter" class="newsletter reveal">
     <div class="newsletter-inner">
@@ -465,41 +340,16 @@
   </section>
 
   <footer class="footer">
-<<<<<<< HEAD
-
-    <div class="footer-inner">
-
-      <div class="logo footer-logo">
-        Campus<span>Merch</span>
-      </div>
-
-      <div class="footer-links">
-=======
     <div class="footer-top">
       <div class="logo footer-logo"><img src="logo_campusmerch.png" alt="CampusMerch" class="logo-img"></div>
     </div>
     <div class="footer-inner">
       <div class="footer-links">
         <h4 class="footer-heading">Quick Links</h4>
->>>>>>> namann
         <a href="#home">Home</a>
         <a href="#shop">Shop</a>
         <a href="#customize">Customize</a>
         <a href="#clubs">Clubs</a>
-<<<<<<< HEAD
-        <button id="logout-btn" onclick="logout()">Logout</button>
-      </div>
-
-    </div>
-
-    <p class="footer-copy">© 2026 Campus Merch Platform | Made for Students ❤️</p>
-
-  </footer>
-
-</body>
-
-</html>
-=======
         <a href="#bulkorders">Bulk Orders</a>
       </div>
       <div class="footer-team">
@@ -1146,4 +996,3 @@
   </script>
 </body>
 </html>
->>>>>>> namann
