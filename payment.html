@@ -6,6 +6,29 @@
     <title>Checkout - Campus Merch</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        const SUPABASE_URL = 'https://qvyhhcafjbxrzglajbxl.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_s7q818FAPmPZF7rpRyxu3A_ZHzNDN6c';
+
+        // Insert a row into any Supabase table via REST API
+        async function supabaseInsert(table, data, returnData = true) {
+            const url = `${SUPABASE_URL}/rest/v1/${table}`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Prefer': returnData ? 'return=representation' : 'return=minimal'
+                },
+                body: JSON.stringify(data)
+            });
+            if (!response.ok) {
+                const text = await response.text();
+                throw new Error(`HTTP ${response.status}: ${text}`);
+            }
+            return returnData ? response.json() : { success: true };
+        }
+    </script>
     <style>
         /* Payment Page Specific Styles */
         .checkout-container {
@@ -433,11 +456,197 @@
                 flex-direction: column;
             }
         }
+
+        /* ── Order Confirmation Overlay ────────── */
+        .confirm-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(5, 8, 22, 0.85);
+            backdrop-filter: blur(16px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .confirm-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .confirm-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.85) translateY(30px);
+            transition: transform 0.5s cubic-bezier(.22,1,.36,1);
+        }
+        .confirm-overlay.visible .confirm-card {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Animated checkmark circle */
+        .confirm-check {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00f5a0, #00d9f5);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: popIn 0.6s cubic-bezier(.22,1,.36,1) 0.2s both;
+        }
+        .confirm-check svg {
+            width: 44px;
+            height: 44px;
+            stroke: #050816;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 60;
+            stroke-dashoffset: 60;
+            animation: drawCheck 0.5s ease 0.55s forwards;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes drawCheck {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .confirm-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(130deg, #ffffff 40%, #00f5a0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .confirm-subtitle {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .confirm-order-id {
+            display: inline-block;
+            background: rgba(91, 140, 255, 0.12);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .confirm-details {
+            background: rgba(91, 140, 255, 0.06);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .confirm-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+        .confirm-detail-row:last-child {
+            border-top: 1px solid var(--card-border);
+            padding-top: 10px;
+            margin-top: 4px;
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        .confirm-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .confirm-btn {
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .confirm-btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        .confirm-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(91, 140, 255, 0.35);
+        }
+
+        /* Confetti particles */
+        .confetti-container {
+            position: fixed;
+            inset: 0;
+            z-index: 10001;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .confetti {
+            position: absolute;
+            top: -10px;
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
     </style>
 </head>
 <body>
     <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
+
+    <!-- Order Confirmation Overlay -->
+    <div id="confirmOverlay" class="confirm-overlay">
+        <div class="confirm-card">
+            <div class="confirm-check">
+                <svg viewBox="0 0 40 40"><polyline points="10 20 18 28 30 12" /></svg>
+            </div>
+            <h2 class="confirm-title">Order Confirmed!</h2>
+            <p class="confirm-subtitle">Thank you for your purchase. Your campus merch is on its way! 🎓</p>
+            <div class="confirm-order-id" id="confirmOrderId">ORD-XXXXXXXX</div>
+            <div class="confirm-details">
+                <div class="confirm-detail-row"><span>Items</span><span id="confirmItems">—</span></div>
+                <div class="confirm-detail-row"><span>Subtotal</span><span id="confirmSubtotal">—</span></div>
+                <div class="confirm-detail-row"><span>Tax (18% GST)</span><span id="confirmTax">—</span></div>
+                <div class="confirm-detail-row"><span>Discount</span><span id="confirmDiscount">—</span></div>
+                <div class="confirm-detail-row"><span>Total Paid</span><span id="confirmTotal">—</span></div>
+            </div>
+            <div class="confirm-actions">
+                <button class="confirm-btn confirm-btn-primary" onclick="window.location.href='home.html'">Continue Shopping →</button>
+            </div>
+        </div>
+    </div>
+    <div id="confettiContainer" class="confetti-container"></div>
 
     <!-- Navbar -->
     <header id="navbar" class="navbar">
@@ -776,7 +985,7 @@
         });
 
         // ── Form Submission ────────────────────────
-        document.getElementById("checkoutForm").addEventListener("submit", (e) => {
+        document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
             e.preventDefault();
 
             // Validation
@@ -791,35 +1000,115 @@
                 return;
             }
 
-            // Collect form data
+            // Disable button to prevent double-submit
+            const placeOrderBtn = document.querySelector('.btn-place-order');
+            placeOrderBtn.disabled = true;
+            placeOrderBtn.textContent = 'Placing Order...';
+
+            // Calculate totals
+            const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+            const tax = Math.round(subtotal * 0.18);
+            const activePaymentMethod = document.querySelector('.payment-method.active');
+            const promoCode = document.getElementById('promoCode').value.trim().toUpperCase() || null;
+
+            // Promo discount calculation
+            const promoCodes = { 'WELCOME10': 0.10, 'STUDENT20': 0.20, 'BULK50': 0.50 };
+            const discountRate = promoCodes[promoCode] || 0;
+            const discount = Math.round(subtotal * discountRate);
+            const grandTotal = subtotal + tax - discount;
+
+            // Build order object matching Supabase `orders` table columns
             const orderData = {
-                email: document.getElementById("email").value,
-                phone: document.getElementById("phone").value,
-                fullName: document.getElementById("fullName").value,
-                address: document.getElementById("address").value,
-                city: document.getElementById("city").value,
-                state: document.getElementById("state").value,
-                pincode: document.getElementById("pincode").value,
-                country: document.getElementById("country").value,
-                items: cart,
-                timestamp: new Date().toISOString(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                full_name: document.getElementById('fullName').value.trim(),
+                address: document.getElementById('address').value.trim(),
+                city: document.getElementById('city').value.trim(),
+                state: document.getElementById('state').value.trim(),
+                pincode: document.getElementById('pincode').value.trim(),
+                country: document.getElementById('country').value,
+                payment_method: activePaymentMethod ? activePaymentMethod.dataset.method : 'credit-card',
+                promo_code: promoCode,
+                subtotal: subtotal,
+                tax: tax,
+                discount: discount,
+                grand_total: grandTotal,
+                status: 'pending'
             };
 
-            // Log order (in production, send to backend)
-            console.log("Order placed:", orderData);
+            try {
+                console.log('📤 Saving order to Supabase...', orderData);
 
-            // Clear cart
-            localStorage.removeItem("cart");
-            cart = [];
+                // 1. Insert the order and get back the created row (with id)
+                const [createdOrder] = await supabaseInsert('orders', orderData);
+                console.log('✅ Order created:', createdOrder);
 
-            // Show success message
-            showToast("🎉 Order placed successfully!");
+                // 2. Insert each cart item linked to the new order id
+                const orderItems = cart.map(item => ({
+                    order_id: createdOrder.id,
+                    product_id: String(item.id),
+                    product_name: item.name,
+                    product_price: item.price,
+                    quantity: item.qty,
+                    category: item.cat || null,
+                    image_url: item.img || null
+                }));
 
-            // Redirect after delay
-            setTimeout(() => {
-                window.location.href = "home.html";
-            }, 1500);
+                await supabaseInsert('order_items', orderItems, false);
+                console.log('✅ Order items saved');
+
+                // Clear cart
+                localStorage.removeItem('cart');
+                cart = [];
+
+                // Show confirmation overlay
+                showConfirmation({
+                    orderId: createdOrder.order_id || `ORD-${Date.now()}`,
+                    itemCount: orderItems.length,
+                    subtotal: subtotal,
+                    tax: tax,
+                    discount: discount,
+                    grandTotal: grandTotal
+                });
+
+            } catch (error) {
+                console.error('❌ Failed to save order:', error);
+                showToast('❌ Something went wrong. Please try again.');
+                placeOrderBtn.disabled = false;
+                placeOrderBtn.textContent = 'Place Order →';
+            }
         });
+
+        // ── Show Confirmation Overlay ─────────────
+        function showConfirmation({ orderId, itemCount, subtotal, tax, discount, grandTotal }) {
+            document.getElementById('confirmOrderId').textContent = orderId;
+            document.getElementById('confirmItems').textContent = `${itemCount} item${itemCount !== 1 ? 's' : ''}`;
+            document.getElementById('confirmSubtotal').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+            document.getElementById('confirmTax').textContent = `₹${tax.toLocaleString('en-IN')}`;
+            document.getElementById('confirmDiscount').textContent = discount > 0 ? `-₹${discount.toLocaleString('en-IN')}` : '₹0';
+            document.getElementById('confirmTotal').textContent = `₹${grandTotal.toLocaleString('en-IN')}`;
+
+            document.getElementById('confirmOverlay').classList.add('visible');
+            launchConfetti();
+        }
+
+        // ── Confetti Effect ───────────────────────
+        function launchConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const colors = ['#5b8cff', '#00f5a0', '#ffd166', '#ff6b6b', '#a78bfa', '#00d9f5'];
+            for (let i = 0; i < 60; i++) {
+                const el = document.createElement('div');
+                el.className = 'confetti';
+                el.style.left = Math.random() * 100 + '%';
+                el.style.background = colors[Math.floor(Math.random() * colors.length)];
+                el.style.width = (Math.random() * 8 + 6) + 'px';
+                el.style.height = (Math.random() * 8 + 6) + 'px';
+                el.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                el.style.animationDelay = (Math.random() * 1.5) + 's';
+                container.appendChild(el);
+            }
+            setTimeout(() => { container.innerHTML = ''; }, 5000);
+        }
 
         // ── Initialize Page ───────────────────────
         updateOrderSummary();

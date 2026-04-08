@@ -126,10 +126,11 @@
     <a href="index.html" class="logo" style="text-decoration:none;color:inherit"><img src="logo_campusmerch.png"
         alt="CampusMerch" class="logo-img"></a>
     <nav class="nav-links">
-      <a href="index.html#home" class="nav-link">Home</a>
-      <a href="index.html#shop" class="nav-link">Shop</a>
-      <a href="index.html#bulkorders" class="nav-link active">Bulk Orders</a>
-      <a href="index.html#newsletter" class="nav-link">Newsletter</a>
+      <a href="home.html#home" class="nav-link">Home</a>
+      <a href="home.html#shop" class="nav-link">Shop</a>
+      <a href="home.html#bulkorders" class="nav-link active">Bulk Orders</a>
+      <a href="home.html#newsletter" class="nav-link">Newsletter</a>
+      <button id="themeToggle" class="nav-link theme-toggle" aria-label="Toggle theme">🌙</button>
     </nav>
     <div id="hamburger" class="hamburger">
       <span></span><span></span><span></span>
@@ -304,6 +305,13 @@
   </footer>
 
   <script>
+    // ── Apply saved theme immediately ────────────
+    (function() {
+      const saved = localStorage.getItem('theme') || 'dark';
+      if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    })();
+
+    // ── Hamburger Menu ───────────────────────
     const hamburger = document.getElementById("hamburger");
     const navLinks = document.querySelector(".nav-links");
     hamburger.addEventListener("click", () => {
@@ -314,6 +322,25 @@
       if (e.target.classList.contains("nav-link")) {
         hamburger.classList.remove("open");
         navLinks.classList.remove("open");
+      }
+    });
+
+    // ── Theme Toggle ─────────────────────────
+    const themeToggle = document.getElementById('themeToggle');
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    themeToggle.textContent = currentTheme === 'light' ? '☀️' : '🌙';
+
+    themeToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      const cur = document.documentElement.getAttribute('data-theme');
+      if (cur === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.textContent = '🌙';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        themeToggle.textContent = '☀️';
       }
     });
   </script>

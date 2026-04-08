@@ -7,7 +7,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    const SUPABASE_URL = 'https://qvyhhcafjbxrzglajbxl.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_s7q818FAPmPZF7rpRyxu3A_ZHzNDN6c';
+
+    // Supabase REST API function
+    async function saveOrderToSupabase(orderData) {
+      const url = `${SUPABASE_URL}/rest/v1/orders`;
+
+      try {
+        console.log('📤 Sending order to Supabase...', orderData);
+
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Prefer': 'return=representation'
+          },
+          body: JSON.stringify(orderData)
+        });
+
+        console.log('📥 Response status:', response.status);
+
+        if (!response.ok) {
+          const text = await response.text();
+          console.error('Response:', text);
+          throw new Error(`HTTP ${response.status}: ${text}`);
+        }
+
+        const result = await response.json();
+        console.log('✓ Order saved successfully', result);
+        return result;
+      } catch (error) {
+        console.error('❌ Supabase error:', error);
+        throw error;
+      }
+    }
+  </script>
 </head>
+
 
 <body>
   <script src="script.js" defer></script>
