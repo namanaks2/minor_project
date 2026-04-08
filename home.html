@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 
@@ -991,6 +993,18 @@
     }
 
   })();
+  </script>
+
+  <script>
+  // ── Supabase Init (isolated so it can't crash the chatbot) ──
+  try {
+    const SUPABASE_URL = 'https://qvyhhcafjbxrzglajbxl.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_s7q818FAPmPZF7rpRyxu3A_ZHzNDN6c';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    console.log('✓ Supabase connected');
+  } catch (e) {
+    console.warn('⚠️ Supabase init skipped:', e.message);
+  }
   </script>
 </body>
 </html>
