@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>All Products - Campus Merch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse the full collection of Campus Merch products — hoodies, t-shirts, caps, accessories, and stationery.">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .products-page-container {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      padding: 2rem 8%;
+      padding-top: 120px;
+    }
+
+    .products-page-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .products-page-header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(130deg, #ffffff 40%, #5b8cff 70%, #00f5a0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    [data-theme="light"] .products-page-header h1 {
+      background: linear-gradient(130deg, #1a1a2e 40%, #3b6ff0 70%, #00c97e);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .products-page-header p {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .products-page-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      transition: all 0.2s ease;
+    }
+    .products-page-back:hover {
+      opacity: 0.8;
+      transform: translateX(-4px);
+    }
+
+    /* Product count badge */
+    .product-count-badge {
+      display: inline-block;
+      background: rgba(91,140,255,0.15);
+      border: 1px solid rgba(91,140,255,0.4);
+      color: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 16px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .products-page-container {
+        padding: 1rem 5%;
+        padding-top: 100px;
+      }
+      .products-page-header h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Cart Sidebar Overlay -->
+  <div id="cartOverlay" class="cart-overlay"></div>
+
+  <!-- Cart Sidebar -->
+  <aside id="cartSidebar" class="cart-sidebar">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button id="closeCart" class="close-cart">&times;</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div id="cartEmpty" class="cart-empty">
+      <span>🛒</span>
+      <p>Your cart is empty</p>
+    </div>
+    <div id="cartFooter" class="cart-footer">
+      <div class="cart-total">
+        Total: <span id="cartTotal">₹0</span>
+      </div>
+      <button class="btn-primary checkout-btn">Checkout →</button>
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header id="navbar" class="navbar scrolled">
+    <div class="logo"><img src="logo_campusmerch.png" alt="CampusMerch" class="logo-img"></div>
+    <nav id="navLinks" class="nav-links">
+      <a href="home.html" class="nav-link">Home</a>
+      <a href="home.html#shop" class="nav-link">Featured</a>
+      <a href="#" id="cartToggle" class="nav-link cart-btn">
+        Cart <span id="cartCount">0</span>
+      </a>
+      <button id="themeToggle" class="nav-link theme-toggle" aria-label="Toggle theme">🌙</button>
+    </nav>
+    <div id="hamburger" class="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <!-- Products Page Content -->
+  <div class="products-page-container">
+    <a href="home.html" class="products-page-back">← Back to Home</a>
+
+    <div class="products-page-header">
+      <span class="product-count-badge" id="productCountBadge">🎒 8 Products</span>
+      <h1>All Products</h1>
+      <p>Browse our full collection of campus merchandise</p>
+    </div>
+
+    <!-- Search & Filter -->
+    <div class="shop-controls">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search products…" />
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-btn active" data-cat="all">All</button>
+        <button class="filter-btn" data-cat="Apparel">Apparel</button>
+        <button class="filter-btn" data-cat="Accessories">Accessories</button>
+        <button class="filter-btn" data-cat="Stationery">Stationery</button>
+      </div>
+    </div>
+
+    <div id="productGrid" class="product-grid"></div>
+    <p id="noResults" class="no-results hidden">No products found 😕</p>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="logo footer-logo"><img src="logo_campusmerch.png" alt="CampusMerch" class="logo-img"></div>
+    </div>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <h4 class="footer-heading">Quick Links</h4>
+        <a href="home.html">Home</a>
+        <a href="home.html#shop">Featured</a>
+        <a href="home.html#customize">Customize</a>
+        <a href="home.html#clubs">Clubs</a>
+        <a href="home.html#bulkorders">Bulk Orders</a>
+      </div>
+      <div class="footer-team">
+        <h4 class="footer-heading">Our Team</h4>
+        <p>Naman Gupta</p>
+        <p>Aarav Chauhan</p>
+        <p>Paras Jain</p>
+        <p>Tanvi Choudhary</p>
+        <p>Anupriya Agarwal</p>
+      </div>
+    </div>
+    <p class="footer-copy">© 2026 Campus Merch Platform</p>
+  </footer>
+
+  <script>
+    /* =============================================
+       PRODUCTS PAGE — script
+       ============================================= */
+
+    // ── Products Data (same as home page) ──────────
+    const products = [
+      { id: 1, name: "Campus Hoodie ",    price: 999, cat: "Apparel",     badge: "Bestseller", img: "campus hoodie.jfif" },
+      { id: 2, name: "Campus T-Shirt",     price: 299,  cat: "Apparel",     badge: "",           img: "campus tshirt.jfif" },
+      { id: 3, name: "Campus Cap",       price: 199,  cat: "Accessories", badge: "New",        img: "campus cap.jfif" },
+      { id: 4, name: "College Notebook", price: 99,  cat: "Stationery",  badge: "",           img: "notebook-removebg-preview.png" },
+      { id: 6, name: "Tote Bag",         price: 249,  cat: "Accessories", badge: "",           img: "totebag.jfif" },
+      { id: 7, name: "Sticker Pack",     price: 89,  cat: "Stationery",  badge: "Popular",    img: "stickers.jfif" },
+      { id: 9, name: "Custom ID Straps", price: 159,  cat: "Accessories", badge: "Customizable", img: "custom_id_straps-removebg-preview.png" },
+      { id: 10, name: "Duty Badges",     price: 199,  cat: "Accessories", badge: "New",          img: "badge1.png" },
+    ];
+
+    // ── DOM References ────────────────────────────
+    const toast = document.getElementById("toast");
+    const productGrid = document.getElementById("productGrid");
+    const noResults = document.getElementById("noResults");
+    const searchInput = document.getElementById("searchInput");
+    const cartCountEl = document.getElementById("cartCount");
+    const cartSidebar = document.getElementById("cartSidebar");
+    const cartOverlay = document.getElementById("cartOverlay");
+    const closeCartBtn = document.getElementById("closeCart");
+    const cartToggleBtn = document.getElementById("cartToggle");
+    const cartItemsEl = document.getElementById("cartItems");
+    const cartEmptyEl = document.getElementById("cartEmpty");
+    const cartFooterEl = document.getElementById("cartFooter");
+    const cartTotalEl = document.getElementById("cartTotal");
+    const productCountBadge = document.getElementById("productCountBadge");
+
+    let cart = [];
+    let activeCategory = "all";
+
+    // ── Toast ─────────────────────────────────────
+    let toastTimer;
+    function showToast(msg) {
+      clearTimeout(toastTimer);
+      toast.textContent = msg;
+      toast.classList.add("show");
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    // ── Render Products ────────────────────────────
+    function renderProducts(list) {
+      productGrid.innerHTML = "";
+      noResults.classList.toggle("hidden", list.length > 0);
+      productCountBadge.textContent = `🎒 ${list.length} Product${list.length !== 1 ? 's' : ''}`;
+
+      list.forEach((product, i) => {
+        const card = document.createElement("div");
+        card.classList.add("product-card");
+        card.style.animationDelay = `${i * 80}ms`;
+
+        card.innerHTML = `
+          ${product.badge ? `<span class="badge">${product.badge}</span>` : ""}
+          <img src="${product.img}" alt="${product.name}" loading="lazy">
+          <h3>${product.name}</h3>
+          <p class="price">₹${product.price.toLocaleString("en-IN")}</p>
+          <div class="card-actions">
+            <button class="btn-primary add-btn">Add to Cart</button>
+            <button class="wishlist-btn" title="Wishlist">♡</button>
+          </div>
+        `;
+
+        // Add to Cart
+        card.querySelector(".add-btn").addEventListener("click", () => {
+          addToCart(product);
+        });
+
+        // Wishlist toggle
+        const wBtn = card.querySelector(".wishlist-btn");
+        wBtn.addEventListener("click", () => {
+          wBtn.classList.toggle("active");
+          wBtn.textContent = wBtn.classList.contains("active") ? "♥" : "♡";
+          showToast(wBtn.classList.contains("active")
+            ? `${product.name} added to wishlist 💛`
+            : `Removed from wishlist`);
+        });
+
+        productGrid.appendChild(card);
+      });
+    }
+
+    // ── Filter & Search Logic ──────────────────────
+    function applyFilters() {
+      const query = searchInput.value.toLowerCase().trim();
+      const filtered = products.filter(p => {
+        const matchCat  = activeCategory === "all" || p.cat === activeCategory;
+        const matchName = p.name.toLowerCase().includes(query);
+        return matchCat && matchName;
+      });
+      renderProducts(filtered);
+    }
+
+    // Filter buttons
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeCategory = btn.dataset.cat;
+        applyFilters();
+      });
+    });
+
+    // Search input (debounced)
+    let searchTimer;
+    searchInput.addEventListener("input", () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(applyFilters, 250);
+    });
+
+    // ── Cart Helpers ───────────────────────────────
+    function loadCart() {
+      const stored = localStorage.getItem('cart');
+      if (!stored) return;
+      const cartData = JSON.parse(stored);
+      cart = cartData.map(item => ({
+        product: { id: item.id, name: item.name, price: item.price, cat: item.cat, img: item.img },
+        qty: item.qty
+      }));
+    }
+
+    function addToCart(product) {
+      const existing = cart.find(i => i.product.id === product.id);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ product, qty: 1 });
+      }
+      saveCartToLocalStorage();
+      updateCartUI();
+      showToast(`🛒 ${product.name} added to cart!`);
+    }
+
+    function saveCartToLocalStorage() {
+      const cartData = cart.map(item => ({
+        id: item.product.id,
+        name: item.product.name,
+        price: item.product.price,
+        cat: item.product.cat,
+        img: item.product.img,
+        qty: item.qty
+      }));
+      localStorage.setItem('cart', JSON.stringify(cartData));
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(i => i.product.id !== productId);
+      saveCartToLocalStorage();
+      updateCartUI();
+    }
+
+    function changeQty(productId, delta) {
+      const item = cart.find(i => i.product.id === productId);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) {
+        removeFromCart(productId);
+        return;
+      }
+      saveCartToLocalStorage();
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
+      cartCountEl.textContent = totalQty;
+      cartCountEl.style.transform = "scale(1.5)";
+      setTimeout(() => (cartCountEl.style.transform = "scale(1)"), 200);
+
+      cartItemsEl.innerHTML = "";
+      const isEmpty = cart.length === 0;
+      cartEmptyEl.style.display = isEmpty ? "flex" : "none";
+      cartFooterEl.classList.toggle("visible", !isEmpty);
+
+      cart.forEach(({ product, qty }) => {
+        const row = document.createElement("div");
+        row.classList.add("cart-item");
+        row.innerHTML = `
+          <img src="${product.img}" alt="${product.name}">
+          <div class="cart-item-info">
+            <h4>${product.name}</h4>
+            <p>₹${(product.price * qty).toLocaleString("en-IN")}</p>
+          </div>
+          <div class="cart-item-qty">
+            <button class="qty-btn minus">−</button>
+            <span class="qty-num">${qty}</span>
+            <button class="qty-btn plus">+</button>
+          </div>
+        `;
+        row.querySelector(".minus").addEventListener("click", () => changeQty(product.id, -1));
+        row.querySelector(".plus").addEventListener("click", () => changeQty(product.id, +1));
+        cartItemsEl.appendChild(row);
+      });
+
+      const total = cart.reduce((sum, i) => sum + i.product.price * i.qty, 0);
+      cartTotalEl.textContent = `₹${total.toLocaleString("en-IN")}`;
+    }
+
+    // ── Cart Sidebar Open / Close ──────────────────
+    function openCart() {
+      cartSidebar.classList.add("open");
+      cartOverlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+    function closeCart() {
+      cartSidebar.classList.remove("open");
+      cartOverlay.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    cartToggleBtn.addEventListener("click", e => { e.preventDefault(); openCart(); });
+    closeCartBtn.addEventListener("click", closeCart);
+    cartOverlay.addEventListener("click", closeCart);
+
+    // Checkout
+    document.querySelector(".checkout-btn").addEventListener("click", () => {
+      if (cart.length === 0) {
+        showToast("⚠️ Your cart is empty!");
+        return;
+      }
+      saveCartToLocalStorage();
+      window.location.href = "payment.html";
+    });
+
+    // ── Theme Toggle ──────────────────────────────
+    const themeToggle = document.getElementById("themeToggle");
+    const htmlElement = document.documentElement;
+    const savedTheme = localStorage.getItem("theme") || "dark";
+
+    if (savedTheme === "light") {
+      htmlElement.setAttribute("data-theme", "light");
+      themeToggle.textContent = "☀️";
+    } else {
+      htmlElement.removeAttribute("data-theme");
+      themeToggle.textContent = "🌙";
+    }
+
+    themeToggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      const currentTheme = htmlElement.getAttribute("data-theme");
+
+      if (currentTheme === "light") {
+        htmlElement.removeAttribute("data-theme");
+        localStorage.setItem("theme", "dark");
+        themeToggle.textContent = "🌙";
+        showToast("🌙 Dark mode enabled");
+      } else {
+        htmlElement.setAttribute("data-theme", "light");
+        localStorage.setItem("theme", "light");
+        themeToggle.textContent = "☀️";
+        showToast("☀️ Light mode enabled");
+      }
+    });
+
+    // ── Hamburger Menu ────────────────────────────
+    const hamburger = document.getElementById("hamburger");
+    const navLinks = document.getElementById("navLinks");
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("open");
+      navLinks.classList.toggle("open");
+    });
+    navLinks.addEventListener("click", e => {
+      if (e.target.classList.contains("nav-link")) {
+        hamburger.classList.remove("open");
+        navLinks.classList.remove("open");
+      }
+    });
+
+    // ── Navbar scroll styling ─────────────────────
+    const navbar = document.getElementById("navbar");
+    window.addEventListener("scroll", () => {
+      navbar.classList.toggle("scrolled", window.scrollY > 50);
+    });
+
+    // ── Init ───────────────────────────────────────
+    loadCart();
+    renderProducts(products);
+    updateCartUI();
+  </script>
+</body>
+</html>
