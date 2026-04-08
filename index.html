@@ -3,213 +3,235 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Campus Merch Platform</title>
+  <title>Login — Campus Merch Platform</title>
+  <meta name="description" content="Log in to your Campus Merch account using your university email.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="login.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
-  <script src="script.js" defer></script>
 
-  <!-- Toast Notification -->
-  <div id="toast" class="toast"></div>
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme') || 'dark';
+      if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    })();
+  </script>
 
-  <!-- Cart Sidebar Overlay -->
-  <div id="cartOverlay" class="cart-overlay"></div>
+  <!-- <a href="index.html" class="back-home" id="backHome">← Back to Store</a> -->
 
-  <!-- Cart Sidebar -->
-  <aside id="cartSidebar" class="cart-sidebar">
-    <div class="cart-header">
-      <h3>Your Cart</h3>
-      <button id="closeCart" class="close-cart">&times;</button>
-    </div>
-    <div id="cartItems" class="cart-items"></div>
-    <div id="cartEmpty" class="cart-empty">
-      <span>🛒</span>
-      <p>Your cart is empty</p>
-    </div>
-    <div id="cartFooter" class="cart-footer">
-      <div class="cart-total">
-        Total: <span id="cartTotal">₹0</span>
-      </div>
-      <button class="btn-primary checkout-btn">Checkout →</button>
-    </div>
-  </aside>
+  <div class="login-bg-orb login-orb1"></div>
+  <div class="login-bg-orb login-orb2"></div>
+  <div class="login-bg-orb login-orb3"></div>
 
-  <!-- Navbar -->
-  <header id="navbar" class="navbar">
-    <div class="logo">Campus<span>Merch</span></div>
-    <nav id="navLinks" class="nav-links">
-      <a href="#home"      class="nav-link active">Home</a>
-      <a href="#shop"      class="nav-link">Shop</a>
-      <a href="#customize" class="nav-link">Customize</a>
-      <a href="#clubs"     class="nav-link">Clubs</a>
-      <a href="#newsletter" class="nav-link">Newsletter</a>
-      <a href="#" id="cartToggle" class="nav-link cart-btn">
-        Cart <span id="cartCount">0</span>
-      </a>
-    </nav>
-    <div id="hamburger" class="hamburger">
-      <span></span><span></span><span></span>
-    </div>
-  </header>
+  <div id="loginToast" class="login-toast"></div>
 
-  <!-- Hero -->
-  <section id="home" class="hero">
-    <div class="hero-bg-orb orb1"></div>
-    <div class="hero-bg-orb orb2"></div>
-    <div class="hero-content reveal">
-      <span class="hero-badge">🎓 New Collection 2026</span>
-      <h1>Wear Your<br>Campus Identity</h1>
-      <p>Premium merchandise crafted for bold students.</p>
-      <div class="hero-actions">
-        <button class="btn-primary" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
-          Explore Merch
-        </button>
-        <button class="btn-outline" onclick="document.getElementById('customize').scrollIntoView({behavior:'smooth'})">
-          Customize Yours
-        </button>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><strong>2,400+</strong><span>Students</span></div>
-        <div class="stat-divider"></div>
-        <div class="stat"><strong>50+</strong><span>Products</span></div>
-        <div class="stat-divider"></div>
-        <div class="stat"><strong>15+</strong><span>Clubs</span></div>
-      </div>
-    </div>
-  </section>
+  <button id="loginThemeToggle" class="login-theme-toggle" aria-label="Toggle theme">🌙</button>
 
-  <!-- Shop -->
-  <section id="shop" class="products">
-    <h2 class="section-title reveal">Featured Products</h2>
-
-    <!-- Search & Filter -->
-    <div class="shop-controls reveal">
-      <div class="search-wrap">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search products…" />
-      </div>
-      <div class="filter-tabs">
-        <button class="filter-btn active" data-cat="all">All</button>
-        <button class="filter-btn" data-cat="Apparel">Apparel</button>
-        <button class="filter-btn" data-cat="Accessories">Accessories</button>
-        <button class="filter-btn" data-cat="Stationery">Stationery</button>
-      </div>
-    </div>
-
-    <div id="productGrid" class="product-grid"></div>
-    <p id="noResults" class="no-results hidden">No products found 😕</p>
-  </section>
-
-  <!-- Customize -->
-  <section id="customize" class="customize">
-    <h2 class="section-title reveal">Customize Your Merch</h2>
-    <div class="customize-container reveal">
-      <div class="custom-form">
-        <label>Your Name</label>
-        <input type="text" id="customName" placeholder="e.g. Arjun Sharma">
-
-        <label>Department</label>
-        <select id="customDept">
-          <option value="">Select Department</option>
-          <option value="CSE">CSE</option>
-          <option value="ECE">ECE</option>
-          <option value="MECH">MECH</option>
-          <option value="CIVIL">CIVIL</option>
-          <option value="MBA">MBA</option>
-        </select>
-
-        <label>Batch Year</label>
-        <select id="customYear">
-          <option value="">Select Year</option>
-          <option value="2025">2025</option>
-          <option value="2026">2026</option>
-          <option value="2027">2027</option>
-          <option value="2028">2028</option>
-        </select>
-
-        <label>Choose Color</label>
-        <div class="color-picker">
-          <button class="color-swatch active" data-color="#5b8cff" style="background:#5b8cff"></button>
-          <button class="color-swatch" data-color="#00f5a0" style="background:#00f5a0"></button>
-          <button class="color-swatch" data-color="#ff6b6b" style="background:#ff6b6b"></button>
-          <button class="color-swatch" data-color="#ffd166" style="background:#ffd166"></button>
-          <button class="color-swatch" data-color="#ffffff" style="background:#ffffff"></button>
-        </div>
-
-        <button id="previewBtn" class="btn-secondary">Preview Design</button>
-        <button id="addCustomToCart" class="btn-primary">Add Custom to Cart</button>
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="login-brand">
+        <a href="index.html" class="logo"><img src="logo_campusmerch.png" alt="CampusMerch" class="logo-img"></a>
+        <br>
+        <span class="login-badge">🔒 Secure Student Login</span>
       </div>
 
-      <div class="custom-preview">
-        <div class="preview-box" id="previewBox">
-          <div class="preview-tshirt">
-            <div class="preview-label" id="previewText">Your Name | Dept | Year</div>
+      <div class="login-heading">
+        <h1>Welcome Back</h1>
+        <p>Sign in with your university credentials</p>
+      </div>
+
+      <form id="loginForm" class="login-form" novalidate>
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <div class="input-wrap">
+            <input type="email" id="loginEmail" placeholder="rollno@krmu.edu.in" autocomplete="email" required>
+            <span class="input-icon">📧</span>
+          </div>
+          <div class="error-text" id="emailError">⚠ Must end with @krmu.edu.in or @krmangalam.edu.in
           </div>
         </div>
-        <p class="preview-hint">Click "Preview Design" to see it live ↑</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- Clubs -->
-  <section id="clubs" class="clubs">
-    <h2 class="section-title reveal">Trending Campus Clubs</h2>
-    <div class="club-grid reveal">
-      <div class="club-card" data-emoji="💻">
-        <div class="club-icon">💻</div>
-        <h3>Tech Club</h3>
-        <p>Hackathons, coding nights & more</p>
-        <span class="club-tag">342 members</span>
-      </div>
-      <div class="club-card" data-emoji="🎭">
-        <div class="club-icon">🎭</div>
-        <h3>Cultural Club</h3>
-        <p>Dance, drama & art showcases</p>
-        <span class="club-tag">215 members</span>
-      </div>
-      <div class="club-card" data-emoji="⚽">
-        <div class="club-icon">⚽</div>
-        <h3>Sports Club</h3>
-        <p>Tournaments & fitness events</p>
-        <span class="club-tag">189 members</span>
-      </div>
-      <div class="club-card" data-emoji="📸">
-        <div class="club-icon">📸</div>
-        <h3>Photography Club</h3>
-        <p>Shoots, exhibitions & reels</p>
-        <span class="club-tag">127 members</span>
-      </div>
-    </div>
-  </section>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <div class="input-wrap">
+            <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password"
+              required>
+            <span class="input-icon">🔑</span>
+            <button type="button" class="toggle-password" id="togglePassword"
+              aria-label="Toggle password visibility">👁</button>
+          </div>
+          <div class="error-text" id="passwordError">⚠ Must contain an uppercase letter and a symbol</div>
+          <div class="password-requirements">
+            <span class="req-tag" id="reqUppercase">A-Z Uppercase</span>
+            <span class="req-tag" id="reqSymbol">!@# Symbol</span>
+          </div>
+        </div>
 
-  <!-- Newsletter -->
-  <section id="newsletter" class="newsletter reveal">
-    <div class="newsletter-inner">
-      <span class="newsletter-badge">📬 Stay in the loop</span>
-      <h2>Get Drops Before Everyone Else</h2>
-      <p>Limited-edition merch, club exclusives & campus events — straight to your inbox.</p>
-      <form id="newsletterForm" class="newsletter-form">
-        <input type="email" id="newsletterEmail" placeholder="your@email.com" required />
-        <button type="submit" class="btn-primary">Subscribe</button>
+        <button type="submit" class="login-btn" id="loginBtn">Sign In →</button>
       </form>
-      <p id="newsletterMsg" class="newsletter-msg hidden"></p>
-    </div>
-  </section>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="logo footer-logo">Campus<span>Merch</span></div>
-      <div class="footer-links">
-        <a href="#home">Home</a>
-        <a href="#shop">Shop</a>
-        <a href="#customize">Customize</a>
-        <a href="#clubs">Clubs</a>
+      <div class="login-divider"><span> campus access only </span></div>
+
+      <div class="login-footer">
+        Need help? <a href="mailto:namanaks2@gmail.com">Contact Support</a>
       </div>
     </div>
-    <p class="footer-copy">© 2026 Campus Merch Platform | Made for Students ❤️</p>
-  </footer>
+  </div>
+
+  <script>
+    (function () {
+      var emailInput = document.getElementById('loginEmail');
+      var passwordInput = document.getElementById('loginPassword');
+      var emailError = document.getElementById('emailError');
+      var passwordError = document.getElementById('passwordError');
+      var togglePassword = document.getElementById('togglePassword');
+      var loginForm = document.getElementById('loginForm');
+      var loginToast = document.getElementById('loginToast');
+      var reqUppercase = document.getElementById('reqUppercase');
+      var reqSymbol = document.getElementById('reqSymbol');
+
+      var emailPattern = /^[a-zA-Z0-9._%+-]+@(krmu\.edu\.in|krmangalam\.edu\.in)$/;
+
+      function validateEmail() {
+        var val = emailInput.value.trim();
+        if (!val) {
+          emailInput.classList.remove('input-error', 'input-success');
+          emailError.classList.remove('visible');
+          return false;
+        }
+        if (emailPattern.test(val)) {
+          emailInput.classList.remove('input-error');
+          emailInput.classList.add('input-success');
+          emailError.classList.remove('visible');
+          return true;
+        } else {
+          emailInput.classList.remove('input-success');
+          emailInput.classList.add('input-error');
+          emailError.classList.add('visible');
+          return false;
+        }
+      }
+
+      function validatePassword() {
+        var val = passwordInput.value;
+        var hasUpper = /[A-Z]/.test(val);
+        var hasSymbol = /[^a-zA-Z0-9\s]/.test(val);
+
+        if (hasUpper) {
+          reqUppercase.classList.add('met');
+          reqUppercase.classList.remove('unmet');
+        } else if (val.length > 0) {
+          reqUppercase.classList.add('unmet');
+          reqUppercase.classList.remove('met');
+        } else {
+          reqUppercase.classList.remove('met', 'unmet');
+        }
+
+        if (hasSymbol) {
+          reqSymbol.classList.add('met');
+          reqSymbol.classList.remove('unmet');
+        } else if (val.length > 0) {
+          reqSymbol.classList.add('unmet');
+          reqSymbol.classList.remove('met');
+        } else {
+          reqSymbol.classList.remove('met', 'unmet');
+        }
+
+        if (!val) {
+          passwordInput.classList.remove('input-error', 'input-success');
+          passwordError.classList.remove('visible');
+          return false;
+        }
+
+        if (hasUpper && hasSymbol) {
+          passwordInput.classList.remove('input-error');
+          passwordInput.classList.add('input-success');
+          passwordError.classList.remove('visible');
+          return true;
+        } else {
+          passwordInput.classList.remove('input-success');
+          passwordInput.classList.add('input-error');
+          passwordError.classList.add('visible');
+          return false;
+        }
+      }
+
+      emailInput.addEventListener('input', validateEmail);
+      passwordInput.addEventListener('input', validatePassword);
+
+      togglePassword.addEventListener('click', function () {
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          togglePassword.textContent = '🙈';
+        } else {
+          passwordInput.type = 'password';
+          togglePassword.textContent = '👁';
+        }
+      });
+
+      function showToast(message, type) {
+        loginToast.textContent = message;
+        loginToast.className = 'login-toast toast-' + type + ' show';
+        setTimeout(function () {
+          loginToast.classList.remove('show');
+        }, 3500);
+      }
+
+      loginForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var emailValid = validateEmail();
+        var passwordValid = validatePassword();
+
+        if (!emailInput.value.trim()) {
+          emailInput.classList.add('input-error');
+          emailError.textContent = '⚠ Email is required';
+          emailError.classList.add('visible');
+          emailValid = false;
+        }
+
+        if (!passwordInput.value) {
+          passwordInput.classList.add('input-error');
+          passwordError.textContent = '⚠ Password is required';
+          passwordError.classList.add('visible');
+          passwordValid = false;
+        }
+
+        if (!emailValid || !passwordValid) {
+          showToast('❌ Please fix the errors above', 'error');
+          return;
+        }
+
+        showToast('✅ Login successful! Redirecting...', 'success');
+        sessionStorage.setItem('themeTransition', 'true');
+        setTimeout(function () {
+          window.location.href = 'home.html';
+        }, 1800);
+      });
+
+      var loginThemeBtn = document.getElementById('loginThemeToggle');
+      var htmlEl = document.documentElement;
+      var currentTheme = localStorage.getItem('theme') || 'dark';
+      loginThemeBtn.textContent = currentTheme === 'light' ? '☀️' : '🌙';
+
+      loginThemeBtn.addEventListener('click', function () {
+        var cur = htmlEl.getAttribute('data-theme');
+        if (cur === 'light') {
+          htmlEl.removeAttribute('data-theme');
+          localStorage.setItem('theme', 'dark');
+          loginThemeBtn.textContent = '🌙';
+        } else {
+          htmlEl.setAttribute('data-theme', 'light');
+          localStorage.setItem('theme', 'light');
+          loginThemeBtn.textContent = '☀️';
+        }
+      });
+    })();
+  </script>
+
 </body>
 
 </html>
