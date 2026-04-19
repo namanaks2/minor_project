@@ -3,12 +3,12 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Login — Campus Merch Platform</title>
-  <meta name="description" content="Log in to your Campus Merch account using your university email.">
+  <title>DrapeDrop — Your Campus, Your Style</title>
+  <meta name="description"
+    content="DrapeDrop — The official campus merchandise platform. Premium hoodies, tees, accessories, and custom club gear — all in one place.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="login.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
@@ -20,69 +20,255 @@
     })();
   </script>
 
-  <!-- <a href="index.html" class="back-home" id="backHome">← Back to Store</a> -->
-
+  <!-- Background Orbs -->
   <div class="login-bg-orb login-orb1"></div>
   <div class="login-bg-orb login-orb2"></div>
   <div class="login-bg-orb login-orb3"></div>
 
+  <!-- Toast -->
   <div id="loginToast" class="login-toast"></div>
 
+  <!-- Theme Toggle -->
   <button id="loginThemeToggle" class="login-theme-toggle" aria-label="Toggle theme">🌙</button>
 
-  <div class="login-wrapper">
-    <div class="login-card">
-      <div class="login-brand">
-        <a href="index.html" class="logo"><img src="logo_campusmerch.png" alt="CampusMerch" class="logo-img"></a>
-        <br>
-        <span class="login-badge">🔒 Secure Student Login</span>
+  <!-- ═══════════════════════════════════════
+       STICKY NAVBAR
+       ═══════════════════════════════════════ -->
+  <nav class="landing-nav" id="landingNav">
+    <a href="#" class="landing-nav-logo">
+      <img src="logo_campusmerch.png" alt="DrapeDrop" class="logo-img">
+    </a>
+    <div class="landing-nav-links">
+      <a href="#about" class="landing-nav-link">About</a>
+      <a href="#why" class="landing-nav-link">Why Us</a>
+      <a href="#login" class="landing-nav-link landing-nav-cta">Sign In</a>
+    </div>
+    <button class="landing-hamburger" id="landingHamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       HERO SECTION
+       ═══════════════════════════════════════ -->
+  <section class="landing-hero" id="hero">
+    <div class="landing-hero-content">
+      <span class="landing-hero-badge">🎓 Official Campus Merchandise Platform — DrapeDrop</span>
+      <h1>Your Campus.<br>Your Style.<br>Your Identity.</h1>
+      <p class="landing-hero-sub">Premium university-branded apparel, accessories, and custom club gear — designed by
+        students, for students.</p>
+      <div class="landing-hero-actions">
+        <a href="#products" class="btn-primary landing-btn">Explore Products</a>
+        <a href="#login" class="btn-outline landing-btn">Sign In →</a>
       </div>
-
-      <div class="login-heading">
-        <h1>Welcome Back</h1>
-        <p>Sign in with your university credentials</p>
-      </div>
-
-      <form id="loginForm" class="login-form" novalidate>
-        <div class="form-group">
-          <label for="loginEmail">Email Address</label>
-          <div class="input-wrap">
-            <input type="email" id="loginEmail" placeholder="rollno@krmu.edu.in" autocomplete="email" required>
-            <span class="input-icon">📧</span>
-          </div>
-          <div class="error-text" id="emailError">⚠ Must end with @krmu.edu.in or @krmangalam.edu.in
-          </div>
+      <div class="landing-hero-stats">
+        <div class="landing-stat">
+          <strong>2,400+</strong>
+          <span>Students Served</span>
         </div>
-
-        <div class="form-group">
-          <label for="loginPassword">Password</label>
-          <div class="input-wrap">
-            <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password"
-              required>
-            <span class="input-icon">🔑</span>
-            <button type="button" class="toggle-password" id="togglePassword"
-              aria-label="Toggle password visibility">👁</button>
-          </div>
-          <div class="error-text" id="passwordError">⚠ Must contain an uppercase letter and a symbol</div>
-          <div class="password-requirements">
-            <span class="req-tag" id="reqUppercase">A-Z Uppercase</span>
-            <span class="req-tag" id="reqSymbol">!@# Symbol</span>
-          </div>
+        <div class="landing-stat-divider"></div>
+        <div class="landing-stat">
+          <strong>50+</strong>
+          <span>Products</span>
         </div>
-
-        <button type="submit" class="login-btn" id="loginBtn">Sign In →</button>
-      </form>
-
-      <div class="login-divider"><span> campus access only </span></div>
-
-      <div class="login-footer">
-        Need help? <a href="mailto:namanaks2@gmail.com">Contact Support</a>
+        <div class="landing-stat-divider"></div>
+        <div class="landing-stat">
+          <strong>15+</strong>
+          <span>Campus Clubs</span>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
+  <!-- ═══════════════════════════════════════
+       ABOUT / OUR STORY SECTION
+       ═══════════════════════════════════════ -->
+  <section class="landing-about" id="about">
+    <div class="landing-section-inner">
+      <span class="landing-section-badge">📖 Our Story</span>
+      <h2 class="landing-section-title">More Than Just Merch</h2>
+      <p class="landing-about-text">
+        <strong>DrapeDrop</strong> is the official one-stop platform for all university-branded merchandise at K.R.
+        Mangalam University.
+        We believe that what you wear reflects who you are — and your campus identity deserves to be represented with
+        pride.
+      </p>
+      <div class="landing-about-grid">
+        <div class="landing-about-card">
+          <div class="landing-about-icon">🎨</div>
+          <h3>Designed by Students</h3>
+          <p>Every product is conceptualized and designed with student input — from graphics to fabric choices.</p>
+        </div>
+        <div class="landing-about-card">
+          <div class="landing-about-icon">🏫</div>
+          <h3>For Every Club & Society</h3>
+          <p>Whether it's Tech Nexus, MUN, Cultural Club, or Roopantr — we've got custom gear for every team on campus.
+          </p>
+        </div>
+        <div class="landing-about-card">
+          <div class="landing-about-icon">✨</div>
+          <h3>Premium Quality</h3>
+          <p>We source top-tier materials so your hoodies stay soft, your prints stay sharp, and your merch lasts all
+            semester and beyond.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ═══════════════════════════════════════
+       WHY CHOOSE US
+       ═══════════════════════════════════════ -->
+  <section class="landing-why" id="why">
+    <div class="landing-section-inner">
+      <span class="landing-section-badge">🏆 Why DrapeDrop?</span>
+      <h2 class="landing-section-title">Built Different. Built for You.</h2>
+      <div class="landing-why-grid">
+        <div class="landing-why-card">
+          <div class="landing-why-number">01</div>
+          <h3>Bulk Order Discounts</h3>
+          <p>Special pricing for clubs ordering 20+ items. Get your entire team kitted out for less.</p>
+        </div>
+        <div class="landing-why-card">
+          <div class="landing-why-number">02</div>
+          <h3>Full Customization</h3>
+          <p>Choose your colors, add your name, department, and batch year. Make each piece uniquely yours.</p>
+        </div>
+        <div class="landing-why-card">
+          <div class="landing-why-number">03</div>
+          <h3>Fast Campus Delivery</h3>
+          <p>On-campus pickup points and quick turnaround time. No long waits, no extra delivery charges.</p>
+        </div>
+        <div class="landing-why-card">
+          <div class="landing-why-number">04</div>
+          <h3>Trusted by 15+ Clubs</h3>
+          <p>From Tech Nexus to Cultural Club — campus organizations rely on us for all their merchandise needs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       LOGIN SECTION
+       ═══════════════════════════════════════ -->
+  <section class="landing-login" id="login">
+    <div class="landing-section-inner landing-login-inner">
+      <div class="landing-login-text">
+        <span class="landing-section-badge">🚀 Get Started</span>
+        <h2 class="landing-section-title">Join the Community</h2>
+        <p>Sign in with your university email to access the full merch store, customize your gear, place bulk orders,
+          and stay updated with the latest campus drops.</p>
+        <div class="landing-login-perks">
+          <div class="landing-perk">
+            <span>✅</span>
+            <span>Exclusive student pricing</span>
+          </div>
+          <div class="landing-perk">
+            <span>✅</span>
+            <span>Custom merch designer</span>
+          </div>
+          <div class="landing-perk">
+            <span>✅</span>
+            <span>Track your orders</span>
+          </div>
+          <div class="landing-perk">
+            <span>✅</span>
+            <span>Early access to new drops</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="login-wrapper">
+        <div class="login-card">
+          <div class="login-brand">
+            <a href="#hero" class="logo"><img src="logo_campusmerch.png" alt="DrapeDrop" class="logo-img"></a>
+            <br>
+            <span class="login-badge">🔒 Secure Student Login</span>
+          </div>
+
+          <div class="login-heading">
+            <h1>Welcome Back</h1>
+            <p>Sign in with your university credentials</p>
+          </div>
+
+          <form id="loginForm" class="login-form" novalidate>
+            <div class="form-group">
+              <label for="loginEmail">Email Address</label>
+              <div class="input-wrap">
+                <input type="email" id="loginEmail" placeholder="rollno@krmu.edu.in" autocomplete="email" required>
+                <span class="input-icon">📧</span>
+              </div>
+              <div class="error-text" id="emailError">⚠ Must end with @krmu.edu.in or @krmangalam.edu.in
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <div class="input-wrap">
+                <input type="password" id="loginPassword" placeholder="Enter your password"
+                  autocomplete="current-password" required>
+                <span class="input-icon">🔑</span>
+                <button type="button" class="toggle-password" id="togglePassword"
+                  aria-label="Toggle password visibility">👁</button>
+              </div>
+              <div class="error-text" id="passwordError">⚠ Must contain an uppercase letter and a symbol</div>
+              <div class="password-requirements">
+                <span class="req-tag" id="reqUppercase">A-Z Uppercase</span>
+                <span class="req-tag" id="reqSymbol">!@# Symbol</span>
+              </div>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">Sign In →</button>
+          </form>
+
+          <div class="login-divider"><span> campus access only </span></div>
+
+          <div class="login-footer">
+            Need help? <a href="mailto:namanaks2@gmail.com">Contact Support</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════ -->
+  <footer class="landing-footer">
+    <div class="landing-footer-inner">
+      <div class="landing-footer-brand">
+        <img src="logo_campusmerch.png" alt="DrapeDrop" class="logo-img">
+        <p>DrapeDrop — The official campus merchandise platform for K.R. Mangalam University. Designed by students, for
+          students.</p>
+      </div>
+      <div class="landing-footer-links">
+        <h4>Quick Links</h4>
+        <a href="#about">About Us</a>
+        <a href="#products">Products</a>
+        <a href="#why">Why Us</a>
+        <a href="#login">Sign In</a>
+      </div>
+      <div class="landing-footer-team">
+        <h4>Our Team</h4>
+        <p>Naman Gupta</p>
+        <p>Aarav Chauhan</p>
+        <p>Paras Jain</p>
+        <p>Tanvi Choudhary</p>
+        <p>Anupriya Agarwal</p>
+      </div>
+    </div>
+    <div class="landing-footer-bottom">
+      <p>© 2026 DrapeDrop. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════ -->
   <script>
     (function () {
+      /* ── Login Form Logic ────────────────────── */
       var emailInput = document.getElementById('loginEmail');
       var passwordInput = document.getElementById('loginPassword');
       var emailError = document.getElementById('emailError');
@@ -212,6 +398,7 @@
         }, 1800);
       });
 
+      /* ── Theme Toggle ────────────────────────── */
       var loginThemeBtn = document.getElementById('loginThemeToggle');
       var htmlEl = document.documentElement;
       var currentTheme = localStorage.getItem('theme') || 'dark';
@@ -228,6 +415,57 @@
           localStorage.setItem('theme', 'light');
           loginThemeBtn.textContent = '☀️';
         }
+      });
+
+      /* ── Navbar Scroll Effect ────────────────── */
+      var nav = document.getElementById('landingNav');
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 60) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      });
+
+      /* ── Mobile Hamburger ────────────────────── */
+      var hamburger = document.getElementById('landingHamburger');
+      var navLinks = document.querySelector('.landing-nav-links');
+      hamburger.addEventListener('click', function () {
+        hamburger.classList.toggle('open');
+        navLinks.classList.toggle('open');
+      });
+
+      // Close mobile menu when clicking a link
+      document.querySelectorAll('.landing-nav-link').forEach(function (link) {
+        link.addEventListener('click', function () {
+          hamburger.classList.remove('open');
+          navLinks.classList.remove('open');
+        });
+      });
+
+      /* ── Scroll Reveal Animations ────────────── */
+      var revealEls = document.querySelectorAll('.landing-reveal');
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15 });
+
+      revealEls.forEach(function (el) {
+        observer.observe(el);
+      });
+
+      /* ── Smooth Scrolling ────────────────────── */
+      document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          var target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
       });
     })();
   </script>
