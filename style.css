@@ -374,7 +374,6 @@ section {
   background: rgba(59,111,240,0.06);
 }
 
-/* Theme Toggle Button (navbar inline) */
 .theme-toggle {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
