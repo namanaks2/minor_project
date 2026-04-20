@@ -23,14 +23,14 @@ let cart = [];
 let activeCategory = "all";
 
 const products = [
-  { id: 1, name: "Campus Hoodie ",    price: 999, cat: "Apparel",     badge: "Bestseller", img: "campus hoodie.jfif" },
-  { id: 2, name: "Campus T-Shirt",     price: 299,  cat: "Apparel",     badge: "",           img: "campus tshirt.jfif" },
-  { id: 3, name: "Campus Cap",       price: 199,  cat: "Accessories", badge: "New",        img: "campus cap.jfif" },
-  { id: 4, name: "College Notebook", price: 99,  cat: "Stationery",  badge: "",           img: "notebook-removebg-preview.png" },
-  { id: 6, name: "Tote Bag",         price: 249,  cat: "Accessories", badge: "",           img: "totebag.jfif" },
-  { id: 7, name: "Sticker Pack",     price: 89,  cat: "Stationery",  badge: "Popular",    img: "stickers.jfif" },
-  { id: 9, name: "Custom ID Straps", price: 159,  cat: "Accessories", badge: "Customizable", img: "custom_id_straps-removebg-preview.png" },
-  { id: 10, name: "Duty Badges",     price: 199,  cat: "Accessories", badge: "New",          img: "badge1.png" },
+  { id: 1, name: "Campus Hoodie ",    price: 999, cat: "Apparel",     badge: "Bestseller", img: "images/campus hoodie.jfif" },
+  { id: 2, name: "Campus T-Shirt",     price: 299,  cat: "Apparel",     badge: "",           img: "images/campus tshirt.jfif" },
+  { id: 3, name: "Campus Cap",       price: 199,  cat: "Accessories", badge: "New",        img: "images/campus cap.jfif" },
+  { id: 4, name: "College Notebook", price: 99,  cat: "Stationery",  badge: "",           img: "images/notebook-removebg-preview.png" },
+  { id: 6, name: "Tote Bag",         price: 249,  cat: "Accessories", badge: "",           img: "images/totebag.jfif" },
+  { id: 7, name: "Sticker Pack",     price: 89,  cat: "Stationery",  badge: "Popular",    img: "images/stickers.jfif" },
+  { id: 9, name: "Custom ID Straps", price: 159,  cat: "Accessories", badge: "Customizable", img: "images/custom_id_straps-removebg-preview.png" },
+  { id: 10, name: "Duty Badges",     price: 199,  cat: "Accessories", badge: "New",          img: "images/badge1.png" },
 ];
 
 
