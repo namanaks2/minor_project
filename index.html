@@ -311,6 +311,8 @@
           college_name: 'K.R. Mangalam University'
         };
 
+        console.log('📤 Saving user:', userData);
+
         try {
           const response = await fetch(`${SUPABASE_URL}/rest/v1/users`, {
             method: 'POST',
@@ -322,13 +324,19 @@
             body: JSON.stringify(userData)
           });
 
-          if (response.ok) {
-            console.log('✓ User saved to database');
+          console.log('Response status:', response.status);
+
+          if (response.ok || response.status === 201) {
+            console.log('✅ User saved to database');
+            return true;
           } else {
-            console.log('User may already exist');
+            const errorText = await response.text();
+            console.log('User already exists or error:', errorText);
+            return true; // Still proceed even if user exists
           }
         } catch (error) {
-          console.error('Error saving user:', error);
+          console.error('❌ Error saving user:', error);
+          return true; // Proceed anyway
         }
       }
 
@@ -361,7 +369,9 @@
         showToast('✅ Login successful! Redirecting...', 'success');
 
         // Save user to Supabase
+        console.log('🔄 Starting save user process...');
         await saveUserToSupabase(emailInput.value.trim());
+        console.log('✓ Save complete, redirecting...');
 
         sessionStorage.setItem('themeTransition', 'true');
         setTimeout(function () {
@@ -442,4 +452,5 @@
   </script>
 
 </body>
+
 </html>
