@@ -1,0 +1,31 @@
+{
+  "name": "campus_merchandise",
+  "version": "1.0.0",
+  "description": "> The official one-stop platform for all university-branded merchandise at K.R. Mangalam University.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/namanaks2/minor_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/namanaks2/minor_project/issues"
+  },
+  "homepage": "https://github.com/namanaks2/minor_project#readme",
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "nodemailer": "^8.0.5"
+  }
+}

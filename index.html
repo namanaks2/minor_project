@@ -39,8 +39,6 @@
       <img src="images/logo_campusmerch.png" alt="DrapeDrop" class="logo-img">
     </a>
     <div class="landing-nav-links">
-      <a href="#about" class="landing-nav-link">About</a>
-      <a href="#why" class="landing-nav-link">Why Us</a>
       <a href="#login" class="landing-nav-link landing-nav-cta">Sign In</a>
     </div>
     <button class="landing-hamburger" id="landingHamburger" aria-label="Toggle menu">
@@ -58,7 +56,7 @@
       <p class="landing-hero-sub">Premium university-branded apparel, accessories, and custom club gear — designed by
         students, for students.</p>
       <div class="landing-hero-actions">
-        <a href="#products" class="btn-primary landing-btn">Explore Products</a>
+        <a href="home.html" class="btn-primary landing-btn">Get Started</a>
         <a href="#login" class="btn-outline landing-btn">Sign In →</a>
       </div>
       <div class="landing-hero-stats">
@@ -80,74 +78,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       ABOUT / OUR STORY SECTION
-       ═══════════════════════════════════════ -->
-  <section class="landing-about" id="about">
-    <div class="landing-section-inner">
-      <span class="landing-section-badge">📖 Our Story</span>
-      <h2 class="landing-section-title">More Than Just Merch</h2>
-      <p class="landing-about-text">
-        <strong>DrapeDrop</strong> is the official one-stop platform for all university-branded merchandise at K.R.
-        Mangalam University.
-        We believe that what you wear reflects who you are — and your campus identity deserves to be represented with
-        pride.
-      </p>
-      <div class="landing-about-grid">
-        <div class="landing-about-card">
-          <div class="landing-about-icon">🎨</div>
-          <h3>Designed by Students</h3>
-          <p>Every product is conceptualized and designed with student input — from graphics to fabric choices.</p>
-        </div>
-        <div class="landing-about-card">
-          <div class="landing-about-icon">🏫</div>
-          <h3>For Every Club & Society</h3>
-          <p>Whether it's Tech Nexus, MUN, Cultural Club, or Roopantr — we've got custom gear for every team on campus.
-          </p>
-        </div>
-        <div class="landing-about-card">
-          <div class="landing-about-icon">✨</div>
-          <h3>Premium Quality</h3>
-          <p>We source top-tier materials so your hoodies stay soft, your prints stay sharp, and your merch lasts all
-            semester and beyond.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-
-
-  <!-- ═══════════════════════════════════════
-       WHY CHOOSE US
-       ═══════════════════════════════════════ -->
-  <section class="landing-why" id="why">
-    <div class="landing-section-inner">
-      <span class="landing-section-badge">🏆 Why DrapeDrop?</span>
-      <h2 class="landing-section-title">Built Different. Built for You.</h2>
-      <div class="landing-why-grid">
-        <div class="landing-why-card">
-          <div class="landing-why-number">01</div>
-          <h3>Bulk Order Discounts</h3>
-          <p>Special pricing for clubs ordering 20+ items. Get your entire team kitted out for less.</p>
-        </div>
-        <div class="landing-why-card">
-          <div class="landing-why-number">02</div>
-          <h3>Full Customization</h3>
-          <p>Choose your colors, add your name, department, and batch year. Make each piece uniquely yours.</p>
-        </div>
-        <div class="landing-why-card">
-          <div class="landing-why-number">03</div>
-          <h3>Fast Campus Delivery</h3>
-          <p>On-campus pickup points and quick turnaround time. No long waits, no extra delivery charges.</p>
-        </div>
-        <div class="landing-why-card">
-          <div class="landing-why-number">04</div>
-          <h3>Trusted by 15+ Clubs</h3>
-          <p>From Tech Nexus to Cultural Club — campus organizations rely on us for all their merchandise needs.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ═══════════════════════════════════════
        LOGIN SECTION
@@ -244,9 +175,8 @@
       </div>
       <div class="landing-footer-links">
         <h4>Quick Links</h4>
-        <a href="#about">About Us</a>
-        <a href="#products">Products</a>
-        <a href="#why">Why Us</a>
+        <a href="#hero">Home</a>
+        <a href="home.html">Enter Store</a>
         <a href="#login">Sign In</a>
       </div>
       <div class="landing-footer-team">
@@ -268,7 +198,7 @@
        ═══════════════════════════════════════ -->
   <script>
     (function () {
-      /* ── Login Form Logic ────────────────────── */
+      /* ── DOM References ────────────────────── */
       var emailInput = document.getElementById('loginEmail');
       var passwordInput = document.getElementById('loginPassword');
       var emailError = document.getElementById('emailError');
@@ -281,6 +211,7 @@
 
       var emailPattern = /^[a-zA-Z0-9._%+-]+@(krmu\.edu\.in|krmangalam\.edu\.in)$/;
 
+      /* ── Email Validation ──────────────────── */
       function validateEmail() {
         var val = emailInput.value.trim();
         if (!val) {
@@ -301,6 +232,7 @@
         }
       }
 
+      /* ── Password Validation ───────────────── */
       function validatePassword() {
         var val = passwordInput.value;
         var hasUpper = /[A-Z]/.test(val);
@@ -348,6 +280,7 @@
       emailInput.addEventListener('input', validateEmail);
       passwordInput.addEventListener('input', validatePassword);
 
+      /* ── Password Toggle ───────────────────── */
       togglePassword.addEventListener('click', function () {
         if (passwordInput.type === 'password') {
           passwordInput.type = 'text';
@@ -358,6 +291,7 @@
         }
       });
 
+      /* ── Toast Notification ────────────────── */
       function showToast(message, type) {
         loginToast.textContent = message;
         loginToast.className = 'login-toast toast-' + type + ' show';
@@ -366,7 +300,40 @@
         }, 3500);
       }
 
-      loginForm.addEventListener('submit', function (e) {
+      /* ── Save User to Supabase ───────────────*/
+      async function saveUserToSupabase(email) {
+        const SUPABASE_URL = 'https://qvyhhcafjbxrzglajbxl.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_s7q818FAPmPZF7rpRyxu3A_ZHzNDN6c';
+
+        const userData = {
+          email: email,
+          full_name: 'Student',
+          college_name: 'K.R. Mangalam University'
+        };
+
+        try {
+          const response = await fetch(`${SUPABASE_URL}/rest/v1/users`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': SUPABASE_KEY,
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(userData)
+          });
+
+          if (response.ok) {
+            console.log('✓ User saved to database');
+          } else {
+            console.log('User may already exist');
+          }
+        } catch (error) {
+          console.error('Error saving user:', error);
+        }
+      }
+
+      /* ── Login Form Submission ───────────────*/
+      loginForm.addEventListener('submit', async function (e) {
         e.preventDefault();
 
         var emailValid = validateEmail();
@@ -392,13 +359,17 @@
         }
 
         showToast('✅ Login successful! Redirecting...', 'success');
+
+        // Save user to Supabase
+        await saveUserToSupabase(emailInput.value.trim());
+
         sessionStorage.setItem('themeTransition', 'true');
         setTimeout(function () {
           window.location.href = 'home.html';
         }, 1800);
       });
 
-      /* ── Theme Toggle ────────────────────────── */
+      /* ── Theme Toggle ──────────────────────── */
       var loginThemeBtn = document.getElementById('loginThemeToggle');
       var htmlEl = document.documentElement;
       var currentTheme = localStorage.getItem('theme') || 'dark';
@@ -417,7 +388,7 @@
         }
       });
 
-      /* ── Navbar Scroll Effect ────────────────── */
+      /* ── Navbar Scroll Effect ──────────────── */
       var nav = document.getElementById('landingNav');
       window.addEventListener('scroll', function () {
         if (window.scrollY > 60) {
@@ -427,7 +398,7 @@
         }
       });
 
-      /* ── Mobile Hamburger ────────────────────── */
+      /* ── Mobile Hamburger ──────────────────── */
       var hamburger = document.getElementById('landingHamburger');
       var navLinks = document.querySelector('.landing-nav-links');
       hamburger.addEventListener('click', function () {
@@ -443,7 +414,7 @@
         });
       });
 
-      /* ── Scroll Reveal Animations ────────────── */
+      /* ── Scroll Reveal Animations ──────────── */
       var revealEls = document.querySelectorAll('.landing-reveal');
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
@@ -457,7 +428,7 @@
         observer.observe(el);
       });
 
-      /* ── Smooth Scrolling ────────────────────── */
+      /* ── Smooth Scrolling ──────────────────── */
       document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
         anchor.addEventListener('click', function (e) {
           e.preventDefault();
@@ -473,3 +444,4 @@
 </body>
 
 </html>
+
