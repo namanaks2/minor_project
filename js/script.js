@@ -22,6 +22,29 @@ const featuredScroll = document.getElementById("featuredScroll");
 let cart = [];                    
 let activeCategory = "all";
 
+// ── Load Cart from LocalStorage ────────────────
+function loadCart() {
+  const stored = localStorage.getItem('cart');
+  if (!stored) return;
+  try {
+    const cartData = JSON.parse(stored);
+    cart = cartData.map(item => ({
+      product: { 
+        id: item.id, 
+        name: item.name, 
+        price: item.price, 
+        cat: item.cat, 
+        img: item.img 
+      },
+      qty: item.qty
+    }));
+  } catch (e) {
+    console.error("Failed to load cart:", e);
+    cart = [];
+  }
+}
+
+
 const products = [
   { id: 1, name: "Campus Hoodie ",    price: 999, cat: "Apparel",     badge: "Bestseller", img: "images/campus hoodie.jfif" },
   { id: 2, name: "Campus T-Shirt",     price: 299,  cat: "Apparel",     badge: "",           img: "images/campus tshirt.jfif" },
@@ -107,7 +130,7 @@ function renderFeaturedProducts() {
       <h3>${product.name}</h3>
       <p class="price">₹${product.price.toLocaleString("en-IN")}</p>
       <div class="card-actions">
-        <button class="btn-primary add-btn">Add to Cart</button>
+        <button class="btn-primary add-btn" data-id="${product.id}">Add to Cart</button>
         <button class="wishlist-btn" title="Wishlist">♡</button>
       </div>
     `;
@@ -213,11 +236,15 @@ function changeQty(productId, delta) {
 function updateCartUI() {
   // Badge count
   const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
-  cartCountEl.textContent = totalQty;
+  if (cartCountEl) {
+    cartCountEl.textContent = totalQty;
 
-  // Animate badge
-  cartCountEl.style.transform = "scale(1.5)";
-  setTimeout(() => (cartCountEl.style.transform = "scale(1)"), 200);
+    // Animate badge
+    cartCountEl.style.display = "inline-block"; // Ensure transform works
+    cartCountEl.style.transform = "scale(1.5)";
+    setTimeout(() => (cartCountEl.style.transform = "scale(1)"), 200);
+  }
+
 
   // Cart items
   cartItemsEl.innerHTML = "";
@@ -248,17 +275,34 @@ function updateCartUI() {
   // Total
   const total = cart.reduce((sum, i) => sum + i.product.price * i.qty, 0);
   cartTotalEl.textContent = `₹${total.toLocaleString("en-IN")}`;
+
+  // Update all "Add to Cart" buttons on the page
+  document.querySelectorAll(".add-btn").forEach(btn => {
+    const pid = parseInt(btn.dataset.id);
+    const item = cart.find(i => i.product.id === pid);
+    if (item && !isNaN(pid)) {
+      btn.textContent = `In Cart (${item.qty})`;
+      btn.classList.add("added");
+    } else {
+      btn.textContent = "Add to Cart";
+      btn.classList.remove("added");
+    }
+  });
 }
+
 
 // ── Cart Sidebar Open / Close ──────────────────
 function openCart()  {
   cartSidebar.classList.add("open");
   cartOverlay.classList.add("open");
+  document.body.classList.add("cart-open");
   document.body.style.overflow = "hidden";
 }
+
 function closeCart() {
   cartSidebar.classList.remove("open");
   cartOverlay.classList.remove("open");
+  document.body.classList.remove("cart-open");
   document.body.style.overflow = "";
 }
 
@@ -458,5 +502,7 @@ if (profileTrigger && profileDropdown) {
 }
 
 // ── Init ───────────────────────────────────────
+loadCart();
 renderFeaturedProducts();
 updateCartUI();
+

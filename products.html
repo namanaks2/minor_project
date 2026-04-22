@@ -117,6 +117,7 @@
     <nav id="navLinks" class="nav-links">
       <a href="home.html" class="nav-link">Home</a>
       <a href="home.html#shop" class="nav-link">Featured</a>
+      <a href="clubs.html" class="nav-link">Bulk Orders</a>
       <a href="#" id="cartToggle" class="nav-link cart-btn">
         Cart <span id="cartCount">0</span>
       </a>
@@ -243,7 +244,7 @@
           <h3>${product.name}</h3>
           <p class="price">₹${product.price.toLocaleString("en-IN")}</p>
           <div class="card-actions">
-            <button class="btn-primary add-btn">Add to Cart</button>
+            <button class="btn-primary add-btn" data-id="${product.id}">Add to Cart</button>
             <button class="wishlist-btn" title="Wishlist">♡</button>
           </div>
         `;
@@ -381,17 +382,33 @@
 
       const total = cart.reduce((sum, i) => sum + i.product.price * i.qty, 0);
       cartTotalEl.textContent = `₹${total.toLocaleString("en-IN")}`;
+
+      // Update all "Add to Cart" buttons on the page
+      document.querySelectorAll(".add-btn").forEach(btn => {
+        const pid = parseInt(btn.dataset.id);
+        const item = cart.find(i => i.product.id === pid);
+        if (item && !isNaN(pid)) {
+          btn.textContent = `In Cart (${item.qty})`;
+          btn.classList.add("added");
+        } else {
+          btn.textContent = "Add to Cart";
+          btn.classList.remove("added");
+        }
+      });
     }
+
 
     // ── Cart Sidebar Open / Close ──────────────────
     function openCart() {
       cartSidebar.classList.add("open");
       cartOverlay.classList.add("open");
+      document.body.classList.add("cart-open");
       document.body.style.overflow = "hidden";
     }
     function closeCart() {
       cartSidebar.classList.remove("open");
       cartOverlay.classList.remove("open");
+      document.body.classList.remove("cart-open");
       document.body.style.overflow = "";
     }
 

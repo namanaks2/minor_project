@@ -48,7 +48,7 @@
       <a href="#shop" class="nav-link">Shop</a>
       <a href="#customize" class="nav-link">Customize</a>
       <!-- <a href="#clubs" class="nav-link">Clubs</a> -->
-      <a href="#bulkorders" class="nav-link">Bulk Orders</a>
+      <a href="clubs.html" class="nav-link">Bulk Orders</a>
       <a href="#newsletter" class="nav-link">Newsletter</a>
       <a href="#" id="cartToggle" class="nav-link cart-btn">
         Cart <span id="cartCount">0</span>
@@ -363,7 +363,7 @@
         <a href="#shop">Shop</a>
         <a href="#customize">Customize</a>
         <a href="#clubs">Clubs</a>
-        <a href="#bulkorders">Bulk Orders</a>
+        <a href="clubs.html">Bulk Orders</a>
       </div>
       <div class="footer-team">
         <h4 class="footer-heading">Our Team</h4>
@@ -429,8 +429,13 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 6px 28px rgba(91,140,255,0.45);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.4s cubic-bezier(.22,1,.36,1);
     }
+    body.cart-open .ai-fab {
+      right: auto;
+      left: 28px;
+    }
+
     .ai-fab:hover {
       transform: scale(1.1);
       box-shadow: 0 8px 36px rgba(91,140,255,0.55);
@@ -481,6 +486,11 @@
       visibility: visible;
       transform: translateY(0) scale(1);
     }
+    body.cart-open .ai-chat-window {
+      right: auto;
+      left: 28px;
+    }
+
 
     [data-theme="light"] .ai-chat-window {
       box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
@@ -669,6 +679,14 @@
         width: 52px;
         height: 52px;
         font-size: 1.4rem;
+      }
+      body.cart-open .ai-fab {
+        right: auto;
+        left: 18px;
+      }
+      body.cart-open .ai-chat-window {
+        right: auto;
+        left: 8px;
       }
     }
   </style>

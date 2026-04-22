@@ -47,6 +47,16 @@
             gap: 3rem;
         }
 
+        /* Fix navbar overlap and background */
+        .navbar {
+            background: var(--surface-overlay) !important;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 2px 24px rgba(0,0,0,0.15);
+        }
+        .nav-links {
+            gap: 1.5rem !important;
+        }
+
         @media (max-width: 768px) {
             .checkout-wrapper {
                 grid-template-columns: 1fr;
@@ -904,19 +914,26 @@
 
             summaryItems.innerHTML = "";
 
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartCountEl.textContent = totalQty;
+
+            if (cartCountEl) {
+                cartCountEl.style.transform = "scale(1.5)";
+                setTimeout(() => (cartCountEl.style.transform = "scale(1)"), 200);
+            }
+
             if (cart.length === 0) {
                 summaryEmpty.style.display = "flex";
                 summaryItems.style.display = "none";
                 subtotalEl.textContent = "₹0";
                 taxEl.textContent = "₹0";
                 grandTotalEl.textContent = "₹0";
-                cartCountEl.textContent = "0";
                 return;
             }
 
             summaryEmpty.style.display = "none";
             summaryItems.style.display = "block";
-            cartCountEl.textContent = cart.length;
+
 
             let subtotal = 0;
             cart.forEach(item => {
